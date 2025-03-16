@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your one-stop destination for all image and PDF tools. Compress, convert, and optimize files effortlessly.">
+    <meta name="keywords" content="image tools, PDF tools, compress images, optimize PDF, online tools">
+    <meta name="author" content="Your Name">
+    <title>Tools Website - Home</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #007bff;
+            color: #fff;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        main {
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .tool-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .tool-card i {
+            font-size: 3rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .tool-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #007bff;
+            color: #fff;
+            width: 100%;
+            margin-top: auto;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .tool-card h2 {
+                font-size: 1.2rem;
+            }
+
+            .tool-card p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tools Website</h1>
+        <p>Your one-stop destination for all image and PDF tools</p>
+    </header>
+    <main>
+        <div class="tools-grid">
+    <!-- Tool Card 1: Image Compression -->
+    <a href="/img-compress.html" class="tool-card">
+        <i class="fas fa-file-image"></i>
+        <h2>Image Compression</h2>
+        <p>Compress and optimize your images for web use.</p>
+    </a>
+
+    <!-- Tool Card 2: PDF Compression -->
+    <a href="pdf-compression.html" class="tool-card">
+        <i class="fas fa-file-pdf"></i>
+        <h2>PDF Compression</h2>
+        <p>Reduce the size of your PDF files without losing quality.</p>
+    </a>
+
+    <!-- Tool Card 3: Image to PDF -->
+    <a href="image-to-pdf.html" class="tool-card">
+        <i class="fas fa-images"></i>
+        <h2>Image to PDF</h2>
+        <p>Convert images to PDF format effortlessly.</p>
+    </a>
+
+    <!-- Tool Card 4: PDF to Image -->
+    <a href="pdf-to-image.html" class="tool-card">
+        <i class="fas fa-image"></i>
+        <h2>PDF to Image</h2>
+        <p>Convert PDF pages to high-quality images.</p>
+    </a>
+
+    <!-- Tool Card 5: Image Resizer -->
+    <a href="image-resizer.html" class="tool-card">
+        <i class="fas fa-expand-arrows-alt"></i>
+        <h2>Image Resizer</h2>
+        <p>Resize images to your desired dimensions.</p>
+    </a>
+
+    <!-- Tool Card 6: PDF Merger -->
+    <a href="pdf-merger.html" class="tool-card">
+        <i class="fas fa-file-archive"></i>
+        <h2>PDF Merger</h2>
+        <p>Merge multiple PDF files into one.</p>
+    </a>
+
+    <!-- Add more tool cards here -->
+</div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Tools Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>
