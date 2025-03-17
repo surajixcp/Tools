@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert PDF files to high-quality images with customizable compression levels. Free and easy-to-use PDF to image converter tool.">
+  <meta name="keywords" content="PDF to image, PDF converter, image converter, compress PDF, SEO tools">
+  <meta name="author" content="Your Name">
+  <title>PDF to Image Converter - High-Quality Tool</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Animate.css for Animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    /* CSS for Styling and Responsiveness */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 0;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #e0e0e0;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    main {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #upload-section, #compression-section, #output-section, #ad-section {
+      margin-bottom: 1.5rem;
+    }
+
+    #pdf-input {
+      display: none;
+    }
+
+    .upload-label {
+      display: block;
+      background: #2575fc;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .upload-label:hover {
+      background: #1b5fd9;
+    }
+
+    #convert-btn {
+      background: #6a11cb;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #convert-btn:hover {
+      background: #4d0a9e;
+    }
+
+    #compression-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #compression-section label {
+      font-size: 0.9rem;
+      color: #e0e0e0;
+    }
+
+    #compression-level {
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    #image-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    #image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    #image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #e0e0e0;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header p {
+        font-size: 0.9rem;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+
+      #convert-btn {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1 class="animate__animated animate__fadeInDown">PDF to Image Converter</h1>
+    <p class="animate__animated animate__fadeInUp">Convert your PDF files to high-quality images with customizable compression levels.</p>
+  </header>
+
+  <main>
+    <!-- File Upload Section -->
+    <section id="upload-section">
+      <label for="pdf-input" class="upload-label animate__animated animate__fadeIn">Choose PDF File</label>
+      <input type="file" id="pdf-input" accept="application/pdf" />
+    </section>
+
+    <!-- Compression Level Section -->
+    <section id="compression-section" class="animate__animated animate__fadeIn">
+      <label for="compression-level">Compression Level:</label>
+      <select id="compression-level">
+        <option value="1.0">High Quality (No Compression)</option>
+        <option value="0.8">Medium Quality</option>
+        <option value="0.6">Low Quality</option>
+      </select>
+    </section>
+
+    <!-- Convert Button -->
+    <button id="convert-btn" class="animate__animated animate__fadeIn">Convert to Image</button>
+
+    <!-- Output Section -->
+    <section id="output-section" class="animate__animated animate__fadeIn">
+      <h2>Converted Images</h2>
+      <div id="image-container"></div>
+    </section>
+
+    <!-- AdSense Ad Unit -->
+    <section id="ad-section" class="animate__animated animate__fadeIn">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+           data-ad-slot="YOUR_AD_SLOT_ID"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </section>
+  </main>
+
+  <footer class="animate__animated animate__fadeInUp">
+    <p>&copy; 2023 PDF to Image Converter. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression/dist/browser-image-compression.min.js"></script>
+  <script>
+    // JavaScript for Dynamic Functionality
+    document.getElementById('convert-btn').addEventListener('click', async () => {
+      const file = document.getElementById('pdf-input').files[0];
+      if (!file) {
+        alert('Please upload a PDF file.');
+        return;
+      }
+
+      const compressionLevel = parseFloat(document.getElementById('compression-level').value);
+      const imageContainer = document.getElementById('image-container');
+      imageContainer.innerHTML = ''; // Clear previous images
+
+      const pdfData = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 2.0 });
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        await page.render({ canvasContext: context, viewport }).promise;
+
+        // Convert canvas to image
+        const image = canvas.toDataURL('image/jpeg', compressionLevel);
+
+        // Compress image
+        const compressedImage = await imageCompression.loadImage(image);
+        const compressedImageBlob = await imageCompression.compress(compressedImage, {
+          maxSizeMB: compressionLevel,
+          useWebWorker: true,
+        });
+
+        const imgElement = document.createElement('img');
+        imgElement.src = URL.createObjectURL(compressedImageBlob);
+        imageContainer.appendChild(imgElement);
+      }
+    });
+  </script>
+</body>
+</html>
