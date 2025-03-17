@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert images to PDF online with customizable compression levels. Fast, free, and easy-to-use image to PDF converter tool.">
+  <meta name="keywords" content="image to PDF, PDF converter, compress PDF, image converter, online PDF tool">
+  <meta name="author" content="Your Company Name">
+  <title>Image to PDF Converter | Free Online Tool</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* CSS for Attractive UI and Animations */
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #28a745;
+      --background-color: #f4f4f4;
+      --text-color: #333;
+      --white: #fff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: var(--white);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .upload-section {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #image-upload {
+      display: none;
+    }
+
+    .upload-label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .upload-label:hover {
+      background-color: #0056b3;
+    }
+
+    #image-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    #image-preview img {
+      max-width: 100px;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    #image-preview img:hover {
+      transform: scale(1.1);
+    }
+
+    .compression-section {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #compression-level {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid var(--primary-color);
+      font-size: 16px;
+    }
+
+    #convert-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: var(--secondary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    #convert-btn:hover {
+      background-color: #218838;
+    }
+
+    .ad-unit {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: var(--shadow);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    main {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      main {
+        padding: 15px;
+      }
+
+      #image-preview img {
+        max-width: 80px;
+      }
+
+      #convert-btn {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 24px;
+      }
+
+      .upload-label {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      #compression-level {
+        font-size: 14px;
+      }
+    }
+  </style>
+  <!-- Google AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1>Image to PDF Converter</h1>
+    <p>Convert your images to PDF with customizable compression levels.</p>
+  </header>
+
+  <main>
+    <!-- Ad Unit 1 -->
+    <div class="ad-unit">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+           data-ad-slot="YOUR_AD_UNIT_ID_1"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Image Upload Section -->
+    <section class="upload-section">
+      <input type="file" id="image-upload" accept="image/*" multiple>
+      <label for="image-upload" class="upload-label">
+        <i class="fas fa-upload"></i> Choose Images
+      </label>
+      <div id="image-preview"></div>
+    </section>
+
+    <!-- Compression Level Selection -->
+    <section class="compression-section">
+      <label for="compression-level">Compression Level:</label>
+      <select id="compression-level">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+    </section>
+
+    <!-- Convert Button -->
+    <button id="convert-btn">
+      <i class="fas fa-file-pdf"></i> Convert to PDF
+    </button>
+
+    <!-- Ad Unit 2 -->
+    <div class="ad-unit">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+           data-ad-slot="YOUR_AD_UNIT_ID_2"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Your Company Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript for Dynamic Functionality
+    document.getElementById('image-upload').addEventListener('change', function (event) {
+      const preview = document.getElementById('image-preview');
+      preview.innerHTML = ''; // Clear previous previews
+
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('convert-btn').addEventListener('click', function () {
+      const files = document.getElementById('image-upload').files;
+      const compressionLevel = document.getElementById('compression-level').value;
+
+      if (files.length === 0) {
+        alert('Please upload at least one image.');
+        return;
+      }
+
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append('images', files[i]);
+      }
+      formData.append('compression', compressionLevel);
+
+      // Send the images to the server for PDF conversion
+      fetch('/convert-to-pdf', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'converted.pdf';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
