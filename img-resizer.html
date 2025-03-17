@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Online Image Resizer Tool - Resize your images to desired dimensions quickly and easily.">
+    <meta name="keywords" content="image resizer, resize image, image optimizer, online image tool">
+    <meta name="author" content="Your Name">
+    <title>Image Resizer Tool</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        main {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        #image-resizer {
+            text-align: center;
+        }
+
+        #image-preview {
+            margin: 20px 0;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        #image-preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        #image-preview:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        #image-preview img:hover {
+            transform: scale(1.05);
+        }
+
+        input[type="file"], input[type="number"], button {
+            margin: 10px 0;
+            padding: 12px;
+            width: 100%;
+            max-width: 300px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"] {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        input[type="number"] {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        input[type="number"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            background: #2575fc;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1a5bbf;
+            transform: translateY(-2px);
+        }
+
+        #download-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        #download-link:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            input[type="file"], input[type="number"], button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Image Resizer Tool</h1>
+        <p>Resize your images to desired dimensions quickly and easily.</p>
+    </header>
+
+    <main>
+        <!-- Image Resizer Tool -->
+        <section id="image-resizer">
+            <input type="file" id="image-upload" accept="image/*">
+            <div id="image-preview"></div>
+            <label for="width">Width:</label>
+            <input type="number" id="width" placeholder="Enter width">
+            <label for="height">Height:</label>
+            <input type="number" id="height" placeholder="Enter height">
+            <button id="resize-btn">Resize Image</button>
+            <a id="download-link" style="display:none;">Download Resized Image</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Image Resizer Tool. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript Functionality
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    document.getElementById('image-preview').innerHTML = '';
+                    document.getElementById('image-preview').appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('resize-btn').addEventListener('click', function() {
+            const width = document.getElementById('width').value;
+            const height = document.getElementById('height').value;
+            const imagePreview = document.getElementById('image-preview').querySelector('img');
+
+            if (imagePreview && width && height) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(imagePreview, 0, 0, width, height);
+
+                const resizedImage = canvas.toDataURL('image/jpeg');
+                const downloadLink = document.getElementById('download-link');
+                downloadLink.href = resizedImage;
+                downloadLink.download = 'resized-image.jpg';
+                downloadLink.style.display = 'inline-block';
+            } else {
+                alert('Please upload an image and enter valid dimensions.');
+            }
+        });
+    </script>
+</body>
+</html>
