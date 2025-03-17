@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Merge multiple PDF files into one with our free online PDF merger tool. Optimize images and download the merged PDF instantly.">
+  <meta name="keywords" content="PDF merger, merge PDF, online PDF tool, PDF optimizer">
+  <meta name="author" content="Your Name">
+  <title>Free Online PDF Merger Tool | Merge & Optimize PDFs</title>
+  <style>
+    /* CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    main {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 30px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #upload-section {
+      text-align: center;
+    }
+
+    #pdf-files {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      background: #2575fc;
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .file-label:hover {
+      background: #1b5fd9;
+      transform: translateY(-3px);
+    }
+
+    #merge-btn {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 20px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    #merge-btn:hover {
+      background: #218838;
+      transform: translateY(-3px);
+    }
+
+    #download-section {
+      text-align: center;
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    #download-link {
+      background: #17a2b8;
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    #download-link:hover {
+      background: #138496;
+      transform: translateY(-3px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .ad-unit {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      .file-label, #merge-btn, #download-link {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1>PDF Merger Tool</h1>
+    <p>Merge multiple PDF files into one with ease.</p>
+  </header>
+
+  <main>
+    <!-- File Upload Section -->
+    <section id="upload-section">
+      <input type="file" id="pdf-files" accept="application/pdf" multiple>
+      <label for="pdf-files" class="file-label">Choose PDF Files</label>
+      <button id="merge-btn">Merge PDFs</button>
+    </section>
+
+    <!-- Ad Unit -->
+    <div class="ad-unit">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+           data-ad-slot="YOUR_AD_UNIT_ID"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- Download Section -->
+    <section id="download-section" class="hidden">
+      <a id="download-link" download="merged.pdf">Download Merged PDF</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 PDF Merger Tool. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript for Dynamic Functionality
+    document.getElementById('merge-btn').addEventListener('click', async () => {
+      const files = document.getElementById('pdf-files').files;
+      if (files.length === 0) {
+        alert('Please select at least one PDF file.');
+        return;
+      }
+
+      const formData = new FormData();
+      for (const file of files) {
+        formData.append('pdfs', file);
+      }
+
+      try {
+        const response = await fetch('/merge', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to merge PDFs.');
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+
+        const downloadLink = document.getElementById('download-link');
+        downloadLink.href = url;
+        document.getElementById('download-section').classList.remove('hidden');
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while merging PDFs.');
+      }
+    });
+  </script>
+</body>
+</html>
