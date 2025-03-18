@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate high-quality images using prompts or keywords. Resize and optimize images for free.">
+    <meta name="keywords" content="image generator, image resizer, free images, Unsplash API, image optimization">
+    <meta name="author" content="Suraj Giri">
+    <title>Image Generator Tool</title>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_AD_UNIT_ID" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            padding: 12px;
+            width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .search-box input:focus {
+            border-color: #6a11cb;
+        }
+        .search-box button {
+            padding: 12px 24px;
+            border: none;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border-radius: 0 8px 8px 0;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .search-box button:hover {
+            opacity: 0.9;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .resize-options {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .resize-options input {
+            padding: 10px;
+            width: 100px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin: 0 10px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .resize-options input:focus {
+            border-color: #6a11cb;
+        }
+        .resize-options button {
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .resize-options button:hover {
+            opacity: 0.9;
+        }
+        .load-more {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .load-more button {
+            padding: 12px 24px;
+            border: none;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .load-more button:hover {
+            opacity: 0.9;
+        }
+        .ads {
+            margin: 20px 0;
+            text-align: center;
+        }
+        footer {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .search-box input {
+                width: 200px;
+            }
+            .search-box button {
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Image Generator Tool</h1>
+        <p>Generate and resize images using keywords or prompts.</p>
+    </header>
+
+    <div class="container">
+        <!-- Search Box -->
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Enter a keyword or prompt...">
+            <button onclick="generateImages()">Generate</button>
+        </div>
+
+        <!-- Image Container -->
+        <div class="image-container" id="image-container">
+            <!-- Images will be dynamically inserted here -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more">
+            <button onclick="loadMoreImages()">Load More Images</button>
+        </div>
+
+        <!-- Resize Options -->
+        <div class="resize-options">
+            <label for="width">Width:</label>
+            <input type="number" id="width" placeholder="Width">
+            <label for="height">Height:</label>
+            <input type="number" id="height" placeholder="Height">
+            <button onclick="resizeImages()">Resize Images</button>
+        </div>
+
+        <!-- Ad Space -->
+        <div class="ads">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR_ADSENSE_AD_UNIT_ID"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Image Generator Tool. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const apiKey = 'qPnIWYdvTLvxHg7sTBH5USNdq7qXTICq9BAL5YlNADU';
+        const apiUrl = 'https://api.unsplash.com/search/photos';
+        let currentPage = 1;
+        let currentQuery = '';
+
+        // Function to fetch images from Unsplash API
+        async function fetchImages(query, page = 1) {
+            const response = await fetch(`${apiUrl}?page=${page}&query=${query}&client_id=${apiKey}`);
+            const data = await response.json();
+            return data.results;
+        }
+
+        // Function to generate images
+        async function generateImages() {
+            currentQuery = document.getElementById('search-input').value;
+            currentPage = 1;
+            const images = await fetchImages(currentQuery, currentPage);
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = ''; // Clear previous images
+            displayImages(images);
+        }
+
+        // Function to load more images
+        async function loadMoreImages() {
+            currentPage += 1;
+            const images = await fetchImages(currentQuery, currentPage);
+            displayImages(images);
+        }
+
+        // Function to display images
+        function displayImages(images) {
+            const imageContainer = document.getElementById('image-container');
+            images.forEach(photo => {
+                const img = document.createElement('img');
+                img.src = photo.urls.small;
+                img.alt = photo.alt_description;
+                imageContainer.appendChild(img);
+            });
+        }
+
+        // Function to resize images
+        function resizeImages() {
+            const width = document.getElementById('width').value;
+            const height = document.getElementById('height').value;
+            const images = document.querySelectorAll('#image-container img');
+
+            images.forEach(img => {
+                img.style.width = `${width}px`;
+                img.style.height = `${height}px`;
+            });
+        }
+    </script>
+</body>
+</html>
