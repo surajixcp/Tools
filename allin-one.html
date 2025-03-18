@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online tools for IP Address Lookup, Math & Calculators, Unit Converters, and Security Tools. Fully responsive and SEO optimized.">
+  <meta name="keywords" content="IP Lookup, Percentage Calculator, BMI Calculator, Currency Converter, Unit Converters, SEO Tools">
+  <meta name="author" content="Your Name">
+  <title>Online Tools - IP Lookup, Calculators, Converters</title>
+  <style>
+    /* Global Styles */
+    :root {
+      --primary-color: #6a11cb;
+      --secondary-color: #2575fc;
+      --background-light: #f4f4f9;
+      --background-dark: #1e1e2f;
+      --text-light: #333;
+      --text-dark: #fff;
+      --card-bg-light: #fff;
+      --card-bg-dark: #2d2d44;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: var(--background-light);
+      color: var(--text-light);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-mode {
+      background: var(--background-dark);
+      color: var(--text-dark);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffdd57;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .theme-toggle.dark-mode {
+      background: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 40px;
+      background: var(--card-bg-light);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    body.dark-mode section {
+      background: var(--card-bg-dark);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--secondary-color);
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .tool {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .tool:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .ad {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    footer .social-links {
+      margin-top: 10px;
+    }
+
+    footer .social-links a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    footer .social-links a:hover {
+      color: #ffdd57;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tool-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+  </style>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1>Online Tools</h1>
+    <nav>
+      <ul>
+        <li><a href="#ip-lookup">IP Lookup</a></li>
+        <li><a href="#calculators">Calculators</a></li>
+        <li><a href="#converters">Unit Converters</a></li>
+        <li><a href="#security">Security Tools</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Dark Mode Toggle -->
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+  <main>
+    <!-- IP Address Lookup -->
+    <section id="ip-lookup">
+      <h2>IP Address Lookup</h2>
+      <input type="text" id="ip-input" placeholder="Enter IP Address" style="padding: 10px; width: 200px; border: 1px solid #ccc; border-radius: 5px;">
+      <button onclick="lookupIP()" style="padding: 10px 20px; background: var(--secondary-color); color: #fff; border: none; border-radius: 5px; cursor: pointer;">Lookup</button>
+      <div id="ip-result" style="margin-top: 20px;"></div>
+    </section>
+
+    <!-- AdSense Ad Unit -->
+    <div class="ad">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="YOUR_ADSENSE_ID"
+           data-ad-slot="YOUR_AD_UNIT_ID"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for tools..." oninput="filterTools()">
+    </div>
+
+    <!-- Calculators -->
+    <section id="calculators">
+      <h2>Calculators</h2>
+      <div class="tool-grid">
+        <div class="tool" onclick="percentageCalculator()">Percentage Calculator</div>
+        <div class="tool" onclick="ageCalculator()">Age Calculator</div>
+        <div class="tool" onclick="bmiCalculator()">BMI Calculator</div>
+        <div class="tool" onclick="loanEmiCalculator()">Loan EMI Calculator</div>
+        <div class="tool" onclick="scientificCalculator()">Scientific Calculator</div>
+        <div class="tool" onclick="discountCalculator()">Discount Calculator</div>
+        <div class="tool" onclick="currencyConverter()">Currency Converter</div>
+        <div class="tool" onclick="timeZoneConverter()">Time Zone Converter</div>
+        <div class="tool" onclick="binaryToDecimalConverter()">Binary to Decimal Converter</div>
+        <div class="tool" onclick="tipCalculator()">Tip Calculator</div>
+      </div>
+    </section>
+
+    <!-- Unit Converters -->
+    <section id="converters">
+      <h2>Unit Converters</h2>
+      <div class="tool-grid">
+        <div class="tool" onclick="lengthConverter()">Length Converter</div>
+        <div class="tool" onclick="weightConverter()">Weight Converter</div>
+        <div class="tool" onclick="speedConverter()">Speed Converter</div>
+        <div class="tool" onclick="temperatureConverter()">Temperature Converter</div>
+        <div class="tool" onclick="volumeConverter()">Volume Converter</div>
+        <div class="tool" onclick="dataStorageConverter()">Data Storage Converter</div>
+        <div class="tool" onclick="energyConverter()">Energy Converter</div>
+        <div class="tool" onclick="pressureConverter()">Pressure Converter</div>
+        <div class="tool" onclick="fuelEfficiencyConverter()">Fuel Efficiency Converter</div>
+        <div class="tool" onclick="angleConverter()">Angle Converter</div>
+      </div>
+    </section>
+
+    <!-- Security Tools -->
+    <section id="security">
+      <h2>Security Tools</h2>
+      <div class="tool-grid">
+        <div class="tool" onclick="encryptionTool()">Encryption Tool</div>
+        <div class="tool" onclick="passwordGenerator()">Password Generator</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Online Tools. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" target="_blank">Facebook</a>
+      <a href="#" target="_blank">Twitter</a>
+      <a href="#" target="_blank">LinkedIn</a>
+      <a href="#" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const themeToggle = document.querySelector('.theme-toggle');
+      themeToggle.classList.toggle('dark-mode');
+      themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    }
+
+    // IP Lookup Functionality
+    function lookupIP() {
+      const ip = document.getElementById('ip-input').value;
+      fetch(`https://ipapi.co/${ip}/json/`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('ip-result').innerHTML = `
+            <p>IP: ${data.ip}</p>
+            <p>City: ${data.city}</p>
+            <p>Region: ${data.region}</p>
+            <p>Country: ${data.country_name}</p>
+          `;
+        })
+        .catch(error => {
+          document.getElementById('ip-result').innerHTML = `<p>Error: ${error.message}</p>`;
+        });
+    }
+
+    // Search Functionality
+    function filterTools() {
+      const searchQuery = document.getElementById('search-input').value.toLowerCase();
+      const tools = document.querySelectorAll('.tool');
+      tools.forEach(tool => {
+        const toolName = tool.textContent.toLowerCase();
+        if (toolName.includes(searchQuery)) {
+          tool.style.display = 'block';
+        } else {
+          tool.style.display = 'none';
+        }
+      });
+    }
+
+    // Calculator Functions
+    function percentageCalculator() {
+      const num = parseFloat(prompt("Enter the number:"));
+      const percent = parseFloat(prompt("Enter the percentage:"));
+      const result = (num * percent) / 100;
+      alert(`Result: ${result}`);
+    }
+
+    function ageCalculator() {
+      const birthYear = parseInt(prompt("Enter your birth year:"));
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - birthYear;
+      alert(`Your age is: ${age}`);
+    }
+
+    function bmiCalculator() {
+      const weight = parseFloat(prompt("Enter your weight (kg):"));
+      const height = parseFloat(prompt("Enter your height (m):"));
+      const bmi = (weight / (height * height)).toFixed(2);
+      alert(`Your BMI: ${bmi}`);
+    }
+
+    function loanEmiCalculator() {
+      const principal = parseFloat(prompt("Enter loan amount:"));
+      const rate = parseFloat(prompt("Enter interest rate (%):"));
+      const time = parseFloat(prompt("Enter loan tenure (years):"));
+      const monthlyRate = rate / 1200;
+      const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, time * 12)) / (Math.pow(1 + monthlyRate, time * 12) - 1);
+      alert(`Monthly EMI: ${emi.toFixed(2)}`);
+    }
+
+    // Add more tool functions as needed
+  </script>
+</body>
+</html>
