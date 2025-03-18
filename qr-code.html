@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate QR codes for free! Convert text, URLs, and links into QR codes instantly. Fast, easy, and fully responsive.">
+    <meta name="keywords" content="QR Code Generator, QR Code, Free QR Code, QR Code API, QR Code Creator">
+    <meta name="author" content="Suraj Giri">
+    <title>Free QR Code Generator</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        main {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .qr-generator {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            resize: none;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            background: rgba(255, 255, 255, 1);
+            outline: none;
+        }
+
+        .size-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .size-input label {
+            font-size: 1rem;
+        }
+
+        .size-input input {
+            width: 60px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            background: #2575fc;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #1b5fd9;
+            transform: translateY(-2px);
+        }
+
+        #qr-code-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        #qr-code-image {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #download-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #download-link:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            text-align: center;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            textarea {
+                font-size: 0.9rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1>QR Code Generator</h1>
+        <p>Convert text, URLs, and links into QR codes instantly.</p>
+    </header>
+
+    <main>
+        <!-- AdSense Ad Unit -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+                 data-ad-slot="YOUR_AD_UNIT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="qr-generator">
+            <textarea id="input-text" placeholder="Enter text, URL, or link..."></textarea>
+            <div class="size-input">
+                <label for="qr-size">QR Size:</label>
+                <input type="number" id="qr-size" min="100" max="500" value="150" placeholder="Size (px)">
+            </div>
+            <button id="generate-btn">Generate QR Code</button>
+            <div id="qr-code-container">
+                <img id="qr-code-image" src="" alt="Generated QR Code">
+            </div>
+            <a id="download-link" href="#" download="qrcode.png" style="display:none;">Download QR Code</a>
+        </div>
+
+        <!-- AdSense Ad Unit -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+                 data-ad-slot="YOUR_AD_UNIT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 QR Code Generator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for QR Code Generation
+        document.getElementById('generate-btn').addEventListener('click', function () {
+            const inputText = document.getElementById('input-text').value.trim();
+            const qrSize = document.getElementById('qr-size').value;
+            const qrCodeImage = document.getElementById('qr-code-image');
+            const downloadLink = document.getElementById('download-link');
+
+            if (inputText === "") {
+                alert("Please enter text, URL, or link to generate QR code.");
+                return;
+            }
+
+            const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(inputText)}`;
+            qrCodeImage.src = apiUrl;
+
+            qrCodeImage.onload = function () {
+                downloadLink.href = apiUrl;
+                downloadLink.style.display = 'block';
+            };
+        });
+    </script>
+</body>
+</html>
