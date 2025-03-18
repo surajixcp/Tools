@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully responsive Color Code Picker tool that allows users to select color codes, gradients, and shades. Optimize images and integrate Google AdSense for monetization.">
+    <meta name="keywords" content="color picker, color code, gradient, shades, image optimization, Google AdSense, SEO">
+    <meta name="author" content="Your Name">
+    <title>Color Code Picker Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1e1e2f, #2d2d44);
+            color: #fff;
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #444;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        body.dark-mode header h1 {
+            color: #fff;
+        }
+
+        /* Main Container */
+        main {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        body.dark-mode main {
+            background: rgba(45, 45, 68, 0.9);
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 25px;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        body.dark-mode section h2 {
+            color: #fff;
+        }
+
+        /* Color Picker Section */
+        #color-picker input[type="color"] {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #color-picker input[type="color"]:hover {
+            transform: scale(1.05);
+        }
+
+        #color-code {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #333;
+            color: #fff;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #color-code:hover {
+            background: #555;
+        }
+
+        /* Gradient Picker Section */
+        #gradient-display {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to right, #ff0000, #0000ff);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        #gradient-display:hover {
+            transform: scale(1.02);
+        }
+
+        #generate-gradient {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        #generate-gradient:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            transform: translateY(-2px);
+        }
+
+        /* Gradient Code Section */
+        #gradient-code {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f1f1f1;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode #gradient-code {
+            background: #444;
+            color: #fff;
+        }
+
+        #gradient-code:hover {
+            background: #e1e1e1;
+        }
+
+        body.dark-mode #gradient-code:hover {
+            background: #555;
+        }
+
+        /* Color Palette Section */
+        #color-palette {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .palette-color {
+            flex: 1;
+            height: 50px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .palette-color:hover {
+            transform: scale(1.05);
+        }
+
+        /* Ad Space Section */
+        #ad-space {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode footer {
+            color: #aaa;
+        }
+
+        footer a {
+            color: #777;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode footer a {
+            color: #aaa;
+        }
+
+        footer a:hover {
+            color: #333;
+        }
+
+        body.dark-mode footer a:hover {
+            color: #fff;
+        }
+
+        /* Dark Mode Toggle */
+        #dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode #dark-mode-toggle {
+            background: #fff;
+            color: #333;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            #gradient-display {
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            section h2 {
+                font-size: 1.3rem;
+            }
+
+            #color-code {
+                font-size: 0.9rem;
+            }
+
+            #generate-gradient {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button id="dark-mode-toggle" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <h1>Color Code Picker Tool</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Color Picker Section -->
+        <section id="color-picker">
+            <h2>Select Color</h2>
+            <input type="color" id="color-selector" value="#ff0000">
+            <p>Selected Color Code: <span id="color-code">#ff0000</span></p>
+        </section>
+
+        <!-- Gradient Picker Section -->
+        <section id="gradient-picker">
+            <h2>Select Gradient</h2>
+            <div id="gradient-display"></div>
+            <button id="generate-gradient">Generate Gradient</button>
+            <p>Gradient Code: <span id="gradient-code">linear-gradient(to right, #ff0000, #0000ff)</span></p>
+        </section>
+
+        <!-- Color Palette Section -->
+        <section id="palette-section">
+            <h2>Color Palette</h2>
+            <div id="color-palette">
+                <div class="palette-color" style="background: #ff0000;"></div>
+                <div class="palette-color" style="background: #00ff00;"></div>
+                <div class="palette-color" style="background: #0000ff;"></div>
+                <div class="palette-color" style="background: #ffff00;"></div>
+                <div class="palette-color" style="background: #ff00ff;"></div>
+            </div>
+        </section>
+
+        <!-- Ad Space Section -->
+        <section id="ad-space">
+            <!-- Google AdSense Ad Unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
+            <!-- Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Color Code Picker Tool. All rights reserved.</p>
+        <div>
+            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <!-- JavaScript Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorSelector = document.getElementById('color-selector');
+            const colorCode = document.getElementById('color-code');
+            const gradientDisplay = document.getElementById('gradient-display');
+            const generateGradientButton = document.getElementById('generate-gradient');
+            const gradientCode = document.getElementById('gradient-code');
+            const paletteColors = document.querySelectorAll('.palette-color');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const body = document.body;
+
+            // Update color code display
+            colorSelector.addEventListener('input', function() {
+                colorCode.textContent = colorSelector.value;
+            });
+
+            // Generate random gradient
+            generateGradientButton.addEventListener('click', function() {
+                const color1 = '#' + Math.floor(Math.random()*16777215).toString(16);
+                const color2 = '#' + Math.floor(Math.random()*16777215).toString(16);
+                gradientDisplay.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+                gradientCode.textContent = `linear-gradient(to right, ${color1}, ${color2})`;
+            });
+
+            // Copy color code to clipboard
+            colorCode.addEventListener('click', function() {
+                navigator.clipboard.writeText(colorCode.textContent).then(() => {
+                    alert('Color code copied to clipboard!');
+                });
+            });
+
+            // Copy gradient code to clipboard
+            gradientCode.addEventListener('click', function() {
+                navigator.clipboard.writeText(gradientCode.textContent).then(() => {
+                    alert('Gradient code copied to clipboard!');
+                });
+            });
+
+            // Generate complementary color palette
+            colorSelector.addEventListener('input', function() {
+                const baseColor = colorSelector.value;
+                const complementaryColors = generateComplementaryColors(baseColor);
+                paletteColors.forEach((color, index) => {
+                    color.style.background = complementaryColors[index];
+                });
+            });
+
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                darkModeToggle.innerHTML = body.classList.contains('dark-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+
+            // Function to generate complementary colors
+            function generateComplementaryColors(baseColor) {
+                const baseHue = parseInt(baseColor.slice(1), 16);
+                const colors = [];
+                for (let i = 0; i < 5; i++) {
+                    const hue = (baseHue + (i * 72)) % 360; // 72 degrees apart for 5 colors
+                    colors.push(`hsl(${hue}, 70%, 60%)`);
+                }
+                return colors;
+            }
+        });
+    </script>
+</body>
+</html>
