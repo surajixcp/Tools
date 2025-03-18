@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully responsive Text-to-Speech tool that converts your text into speech dynamically. Supports multiple languages and voice download. SEO optimized for better visibility.">
+    <meta name="keywords" content="text-to-speech, TTS, responsive, SEO, Google AdSense, download voice">
+    <meta name="author" content="Your Name">
+    <title>Responsive Text-to-Speech Tool</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideUp 1s ease-in-out;
+        }
+
+        /* Text Input */
+        #text-input {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #6a11cb;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            resize: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #text-input:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        /* Language Select */
+        #language-select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 2px solid #6a11cb;
+            margin-bottom: 20px;
+            background: #fff;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        #language-select:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        /* Controls */
+        #controls {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            background: #6a11cb;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #2575fc;
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Ad Space */
+        .ad-space {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            #controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Text-to-Speech Tool</h1>
+    </header>
+
+    <main>
+        <section id="tts-section">
+            <textarea id="text-input" placeholder="Enter text here..."></textarea>
+            <select id="language-select">
+                <option value="en-US">English (US)</option>
+                <option value="es-ES">Spanish (Spain)</option>
+                <option value="fr-FR">French (France)</option>
+                <option value="de-DE">German (Germany)</option>
+                <option value="hi-IN">Hindi (India)</option>
+                <option value="ja-JP">Japanese (Japan)</option>
+                <option value="zh-CN">Chinese (China)</option>
+            </select>
+            <div id="controls">
+                <button id="speak-btn">Speak</button>
+                <button id="pause-btn">Pause</button>
+                <button id="resume-btn">Resume</button>
+                <button id="stop-btn">Stop</button>
+                <button id="download-btn">Download Voice</button>
+            </div>
+            <div id="ad-space-top" class="ad-space">
+                <!-- Google AdSense Ad Unit -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID"
+                        crossorigin="anonymous"></script>
+                <!-- Ad Unit -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div id="ad-space-bottom" class="ad-space">
+            <!-- Google AdSense Ad Unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID"
+                    crossorigin="anonymous"></script>
+            <!-- Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <p>&copy; 2023 Your Company. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const textInput = document.getElementById('text-input');
+        const speakBtn = document.getElementById('speak-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const resumeBtn = document.getElementById('resume-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const languageSelect = document.getElementById('language-select');
+
+        let utterance = new SpeechSynthesisUtterance();
+        let audioChunks = [];
+        let mediaRecorder;
+        let audioStream;
+
+        // Set up speech synthesis
+        speakBtn.addEventListener('click', () => {
+            utterance.text = textInput.value;
+            utterance.lang = languageSelect.value;
+            speechSynthesis.speak(utterance);
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            speechSynthesis.pause();
+        });
+
+        resumeBtn.addEventListener('click', () => {
+            speechSynthesis.resume();
+        });
+
+        stopBtn.addEventListener('click', () => {
+            speechSynthesis.cancel();
+        });
+
+        // Download voice functionality
+        downloadBtn.addEventListener('click', async () => {
+            if (!textInput.value) {
+                alert("Please enter some text first.");
+                return;
+            }
+
+            const audioContext = new AudioContext();
+            const destination = audioContext.createMediaStreamDestination();
+            mediaRecorder = new MediaRecorder(destination.stream);
+
+            mediaRecorder.ondataavailable = (event) => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                const a = document.createElement('a');
+                a.href = audioUrl;
+                a.download = 'speech.wav';
+                a.click();
+                audioChunks = [];
+            };
+
+            utterance.onstart = () => {
+                mediaRecorder.start();
+            };
+
+            utterance.onend = () => {
+                mediaRecorder.stop();
+            };
+
+            utterance.text = textInput.value;
+            utterance.lang = languageSelect.value;
+            speechSynthesis.speak(utterance);
+        });
+    </script>
+</body>
+</html>
