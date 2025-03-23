@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate fake addresses from around the world with our fully responsive and dynamic tool. Perfect for testing and development purposes.">
+    <meta name="keywords" content="fake address generator, global address generator, dynamic address tool, SEO optimized">
+    <meta name="author" content="Your Name">
+    <title>Global Fake Address Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS for Enhanced UI */
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --glass-background: rgba(255, 255, 255, 0.1);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #8e2de2;
+            --secondary-color: #4a00e0;
+            --background-color: #1e1e1e;
+            --text-color: #f4f4f4;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --glass-background: rgba(0, 0, 0, 0.1);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #address-generator {
+            background: var(--glass-background);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: var(--glass-border);
+            box-shadow: var(--box-shadow);
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        #address-generator h2 {
+            margin-top: 0;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        select, button, input {
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        select:focus, button:focus, input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #address-output {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: var(--background-color);
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+        }
+
+        #copy-button, #download-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #download-button {
+            right: 120px;
+        }
+
+        #copy-button:hover, #download-button:hover {
+            background: var(--secondary-color);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            #address-generator h2 {
+                font-size: 1.5rem;
+            }
+
+            select, button, input {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+        </button>
+        <h1>Global Fake Address Generator</h1>
+    </header>
+    <main>
+        <section id="address-generator">
+            <h2>Generate a Fake Address</h2>
+            <form id="address-form">
+                <label for="country">Select Country:</label>
+                <select id="country" name="country" onchange="updateStates()">
+                    <option value="">Select a country</option>
+                </select>
+                <label for="state">Select State:</label>
+                <select id="state" name="state" onchange="updateCities()">
+                    <option value="">Select a state</option>
+                </select>
+                <label for="city">Select City:</label>
+                <select id="city" name="city">
+                    <option value="">Select a city</option>
+                </select>
+                <button type="button" onclick="generateAddress()">Generate Address</button>
+                <button type="button" onclick="generateRandomAddress()">Generate Random Address</button>
+            </form>
+            <div id="address-output">
+                <button id="copy-button" onclick="copyAddress()">Copy Address</button>
+                <button id="download-button" onclick="downloadAddress()">Download Address</button>
+                <!-- Generated address will appear here -->
+            </div>
+        </section>
+        <section id="advertisement">
+            <h2>Advertisement</h2>
+            <!-- Google AdSense Ad Unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                    crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Global Fake Address Generator. All rights reserved.</p>
+    </footer>
+    <script>
+        // JavaScript for Enhanced Functionality
+        let countriesData = {}; // To store loaded data
+
+        // Fetch data from a JSON file or API
+        async function loadData() {
+            try {
+                const response = await fetch('data.json'); // Replace with your JSON file or API endpoint
+                countriesData = await response.json();
+                populateCountries();
+            } catch (error) {
+                console.error("Error loading data:", error);
+            }
+        }
+
+        // Populate countries dropdown
+        function populateCountries() {
+            const countrySelect = document.getElementById('country');
+            countrySelect.innerHTML = '<option value="">Select a country</option>';
+            for (const country of countriesData) {
+                const option = document.createElement('option');
+                option.value = country.code;
+                option.textContent = country.name;
+                countrySelect.appendChild(option);
+            }
+        }
+
+        // Update states dropdown based on selected country
+        function updateStates() {
+            const countrySelect = document.getElementById('country');
+            const stateSelect = document.getElementById('state');
+            stateSelect.innerHTML = '<option value="">Select a state</option>';
+            const selectedCountry = countriesData.find(c => c.code === countrySelect.value);
+            if (selectedCountry && selectedCountry.states) {
+                for (const state of selectedCountry.states) {
+                    const option = document.createElement('option');
+                    option.value = state.code;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                }
+            }
+        }
+
+        // Update cities dropdown based on selected state
+        function updateCities() {
+            const countrySelect = document.getElementById('country');
+            const stateSelect = document.getElementById('state');
+            const citySelect = document.getElementById('city');
+            citySelect.innerHTML = '<option value="">Select a city</option>';
+            const selectedCountry = countriesData.find(c => c.code === countrySelect.value);
+            if (selectedCountry && selectedCountry.states) {
+                const selectedState = selectedCountry.states.find(s => s.code === stateSelect.value);
+                if (selectedState && selectedState.cities) {
+                    for (const city of selectedState.cities) {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        citySelect.appendChild(option);
+                    }
+                }
+            }
+        }
+
+        // Generate a fake address
+        function generateAddress() {
+            const countrySelect = document.getElementById('country');
+            const stateSelect = document.getElementById('state');
+            const citySelect = document.getElementById('city');
+            const addressOutput = document.getElementById('address-output');
+
+            const selectedCountry = countriesData.find(c => c.code === countrySelect.value);
+            const selectedState = selectedCountry.states.find(s => s.code === stateSelect.value);
+            const selectedCity = citySelect.value;
+
+            if (selectedCountry && selectedState && selectedCity) {
+                const randomStreet = Math.floor(Math.random() * 1000) + 1 + " Fake St";
+                addressOutput.innerHTML = `
+                    <p><strong>Street:</strong> ${randomStreet}</p>
+                    <p><strong>City:</strong> ${selectedCity}</p>
+                    <p><strong>State:</strong> ${selectedState.name}</p>
+                    <p><strong>Country:</strong> ${selectedCountry.name}</p>
+                `;
+            } else {
+                addressOutput.innerHTML = `<p>Please select a country, state, and city.</p>`;
+            }
+        }
+
+        // Generate a random address
+        function generateRandomAddress() {
+            const randomCountry = countriesData[Math.floor(Math.random() * countriesData.length)];
+            const randomState = randomCountry.states[Math.floor(Math.random() * randomCountry.states.length)];
+            const randomCity = randomState.cities[Math.floor(Math.random() * randomState.cities.length)];
+            const randomStreet = Math.floor(Math.random() * 1000) + 1 + " Fake St";
+
+            const addressOutput = document.getElementById('address-output');
+            addressOutput.innerHTML = `
+                <p><strong>Street:</strong> ${randomStreet}</p>
+                <p><strong>City:</strong> ${randomCity}</p>
+                <p><strong>State:</strong> ${randomState.name}</p>
+                <p><strong>Country:</strong> ${randomCountry.name}</p>
+            `;
+        }
+
+        // Copy address to clipboard
+        function copyAddress() {
+            const addressOutput = document.getElementById('address-output');
+            const text = addressOutput.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Address copied to clipboard!');
+            });
+        }
+
+        // Download address as a text file
+        function downloadAddress() {
+            const addressOutput = document.getElementById('address-output');
+            const text = addressOutput.innerText;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'fake-address.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Toggle dark mode
+        function toggleTheme() {
+            const body = document.body;
+            body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        }
+
+        // Initialize the page
+        loadData();
+    </script>
+</body>
+</html>
