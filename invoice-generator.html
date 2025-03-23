@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate invoices quickly and easily with our free online Invoice Generator tool. Perfect for freelancers and small businesses.">
+    <meta name="keywords" content="invoice generator, free invoice, online invoice, invoice template, invoice creator">
+    <meta name="author" content="Your Company Name">
+    <title>Free Online Invoice Generator | Your Company Name</title>
+    <style>
+        /* CSS for Styling */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+            --background-light: #f4f4f9;
+            --background-dark: #333;
+            --text-light: #333;
+            --text-dark: #fff;
+            --card-background: #fff;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        #invoice-form {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        #invoice-form label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+
+        #invoice-form input, #invoice-form textarea, #invoice-form select, #invoice-form file {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #invoice-form input:focus, #invoice-form textarea:focus, #invoice-form select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        #invoice-form button {
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        #invoice-form button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        #invoice-preview {
+            margin-top: 2rem;
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        #preview {
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+        }
+
+        #preview img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+
+        #itemsTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        #itemsTable th, #itemsTable td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        #itemsTable th {
+            background-color: var(--background-light);
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: var(--background-dark);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Dark Mode Toggle */
+        #dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            transition: background-color 0.3s ease;
+        }
+
+        #dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            main {
+                padding: 1rem;
+            }
+
+            #invoice-form, #invoice-preview {
+                padding: 1rem;
+            }
+
+            #invoice-form input, #invoice-form textarea, #invoice-form select, #invoice-form file {
+                width: 100%;
+            }
+
+            #preview img {
+                max-width: 100px;
+            }
+        }
+    </style>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_AD_UNIT_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button id="dark-mode-toggle">🌙</button>
+
+    <header>
+        <h1>Invoice Generator</h1>
+    </header>
+
+    <main>
+        <!-- Google AdSense Ad Unit -->
+        <section id="ad-section">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR_ADSENSE_AD_UNIT_ID"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
+
+        <!-- Invoice Form -->
+        <section id="invoice-form">
+            <h2>Create Your Invoice</h2>
+            <form id="invoiceForm">
+                <!-- Company Details -->
+                <h3>Your Company Details</h3>
+                <label for="companyLogo">Company Logo:</label>
+                <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
+
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" name="companyName" required>
+
+                <label for="companyAddress">Company Address:</label>
+                <textarea id="companyAddress" name="companyAddress" rows="3" required></textarea>
+
+                <label for="companyContact">Company Contact:</label>
+                <input type="text" id="companyContact" name="companyContact" required>
+
+                <label for="companyGST">Company GST Number:</label>
+                <input type="text" id="companyGST" name="companyGST" required>
+
+                <!-- Client Details -->
+                <h3>Client Details</h3>
+                <label for="clientName">Client Name:</label>
+                <input type="text" id="clientName" name="clientName" required>
+
+                <label for="clientAddress">Client Address:</label>
+                <textarea id="clientAddress" name="clientAddress" rows="3" required></textarea>
+
+                <label for="clientContact">Client Contact:</label>
+                <input type="text" id="clientContact" name="clientContact" required>
+
+                <label for="clientGST">Client GST Number:</label>
+                <input type="text" id="clientGST" name="clientGST" required>
+
+                <!-- Invoice Details -->
+                <h3>Invoice Details</h3>
+                <label for="invoiceNumber">Invoice Number:</label>
+                <input type="text" id="invoiceNumber" name="invoiceNumber" required readonly>
+
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" name="dueDate" required>
+
+                <label for="paymentTerms">Payment Terms:</label>
+                <select id="paymentTerms" name="paymentTerms" required>
+                    <option value="Net 15">Net 15</option>
+                    <option value="Net 30">Net 30</option>
+                    <option value="Net 60">Net 60</option>
+                </select>
+
+                <label for="currency">Currency:</label>
+                <select id="currency" name="currency" required>
+                    <option value="₹">Indian Rupee (₹)</option>
+                    <option value="$">US Dollar ($)</option>
+                    <option value="€">Euro (€)</option>
+                    <option value="£">British Pound (£)</option>
+                </select>
+
+                <!-- Items Section -->
+                <h3>Items</h3>
+                <div id="itemsContainer">
+                    <div class="item">
+                        <label for="item1">Item:</label>
+                        <input type="text" id="item1" name="item1" required>
+
+                        <label for="quantity1">Quantity:</label>
+                        <input type="number" id="quantity1" name="quantity1" required>
+
+                        <label for="price1">Price per Unit:</label>
+                        <input type="number" id="price1" name="price1" required>
+                    </div>
+                </div>
+                <button type="button" id="addItem">Add Another Item</button>
+
+                <!-- Discount -->
+                <label for="discount">Discount (%):</label>
+                <input type="number" id="discount" name="discount" value="0">
+
+                <!-- GST Details -->
+                <label for="gstType">GST Type:</label>
+                <select id="gstType" name="gstType" required>
+                    <option value="cgst_sgst">CGST + SGST</option>
+                    <option value="igst">IGST</option>
+                </select>
+
+                <label for="gstRate">GST Rate (%):</label>
+                <input type="number" id="gstRate" name="gstRate" required>
+
+                <!-- Signature -->
+                <label for="signature">Signature:</label>
+                <input type="file" id="signature" name="signature" accept="image/*">
+
+                <!-- Notes -->
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes" rows="3"></textarea>
+
+                <button type="submit">Generate Invoice</button>
+            </form>
+        </section>
+
+        <!-- Invoice Preview -->
+        <section id="invoice-preview">
+            <h2>Invoice Preview</h2>
+            <div id="preview"></div>
+            <button id="downloadInvoice">Download Invoice</button>
+            <button id="printInvoice">Print Invoice</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Your Company Name. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for Dynamic Functionality
+        let itemCount = 1;
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Auto-Generate Invoice Number
+        const invoiceNumberField = document.getElementById('invoiceNumber');
+        invoiceNumberField.value = `INV-${Math.floor(Math.random() * 100000)}`;
+
+        // Add More Items
+        document.getElementById('addItem').addEventListener('click', function() {
+            itemCount++;
+            const itemsContainer = document.getElementById('itemsContainer');
+            const newItem = document.createElement('div');
+            newItem.classList.add('item');
+            newItem.innerHTML = `
+                <label for="item${itemCount}">Item:</label>
+                <input type="text" id="item${itemCount}" name="item${itemCount}" required>
+
+                <label for="quantity${itemCount}">Quantity:</label>
+                <input type="number" id="quantity${itemCount}" name="quantity${itemCount}" required>
+
+                <label for="price${itemCount}">Price per Unit:</label>
+                <input type="number" id="price${itemCount}" name="price${itemCount}" required>
+            `;
+            itemsContainer.appendChild(newItem);
+        });
+
+        // Generate Invoice
+        document.getElementById('invoiceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Company Details
+            const companyLogo = document.getElementById('companyLogo').files[0];
+            const companyName = document.getElementById('companyName').value;
+            const companyAddress = document.getElementById('companyAddress').value;
+            const companyContact = document.getElementById('companyContact').value;
+            const companyGST = document.getElementById('companyGST').value;
+
+            // Client Details
+            const clientName = document.getElementById('clientName').value;
+            const clientAddress = document.getElementById('clientAddress').value;
+            const clientContact = document.getElementById('clientContact').value;
+            const clientGST = document.getElementById('clientGST').value;
+
+            // Invoice Details
+            const invoiceNumber = document.getElementById('invoiceNumber').value;
+            const date = document.getElementById('date').value;
+            const dueDate = document.getElementById('dueDate').value;
+            const paymentTerms = document.getElementById('paymentTerms').value;
+            const currency = document.getElementById('currency').value;
+            const discount = parseFloat(document.getElementById('discount').value);
+            const gstType = document.getElementById('gstType').value;
+            const gstRate = parseFloat(document.getElementById('gstRate').value);
+            const signature = document.getElementById('signature').files[0];
+            const notes = document.getElementById('notes').value;
+
+            // Collect Items
+            let items = [];
+            let subtotal = 0;
+            for (let i = 1; i <= itemCount; i++) {
+                const item = document.getElementById(`item${i}`).value;
+                const quantity = parseFloat(document.getElementById(`quantity${i}`).value);
+                const price = parseFloat(document.getElementById(`price${i}`).value);
+                const total = quantity * price;
+                subtotal += total;
+                items.push({ item, quantity, price, total });
+            }
+
+            // Calculate Discount
+            const discountAmount = (subtotal * discount) / 100;
+            const taxableAmount = subtotal - discountAmount;
+
+            // Calculate GST
+            let cgst = 0, sgst = 0, igst = 0;
+            if (gstType === "cgst_sgst") {
+                cgst = (taxableAmount * gstRate) / 100 / 2;
+                sgst = (taxableAmount * gstRate) / 100 / 2;
+            } else if (gstType === "igst") {
+                igst = (taxableAmount * gstRate) / 100;
+            }
+
+            // Calculate Total Amount
+            const totalAmount = taxableAmount + cgst + sgst + igst;
+
+            // Display Invoice Preview
+            const preview = document.getElementById('preview');
+            preview.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    ${companyLogo ? `<img src="${URL.createObjectURL(companyLogo)}" alt="Company Logo">` : ''}
+                    <div>
+                        <h4>Your Company Details</h4>
+                        <p><strong>Name:</strong> ${companyName}</p>
+                        <p><strong>Address:</strong> ${companyAddress}</p>
+                        <p><strong>Contact:</strong> ${companyContact}</p>
+                        <p><strong>GST Number:</strong> ${companyGST}</p>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <h4>Client Details</h4>
+                    <p><strong>Name:</strong> ${clientName}</p>
+                    <p><strong>Address:</strong> ${clientAddress}</p>
+                    <p><strong>Contact:</strong> ${clientContact}</p>
+                    <p><strong>GST Number:</strong> ${clientGST}</p>
+                </div>
+                <hr>
+                <p><strong>Invoice Number:</strong> ${invoiceNumber}</p>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Due Date:</strong> ${dueDate}</p>
+                <p><strong>Payment Terms:</strong> ${paymentTerms}</p>
+                <h4>Items</h4>
+                <table id="itemsTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price per Unit</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items.map(item => `
+                            <tr>
+                                <td>${item.item}</td>
+                                <td>${item.quantity}</td>
+                                <td>${currency}${item.price.toFixed(2)}</td>
+                                <td>${currency}${item.total.toFixed(2)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                <p><strong>Subtotal:</strong> ${currency}${subtotal.toFixed(2)}</p>
+                <p><strong>Discount (${discount}%):</strong> ${currency}${discountAmount.toFixed(2)}</p>
+                <p><strong>Taxable Amount:</strong> ${currency}${taxableAmount.toFixed(2)}</p>
+                ${gstType === "cgst_sgst" ? `
+                    <p><strong>CGST (${gstRate / 2}%):</strong> ${currency}${cgst.toFixed(2)}</p>
+                    <p><strong>SGST (${gstRate / 2}%):</strong> ${currency}${sgst.toFixed(2)}</p>
+                ` : `
+                    <p><strong>IGST (${gstRate}%):</strong> ${currency}${igst.toFixed(2)}</p>
+                `}
+                <p><strong>Total Amount:</strong> ${currency}${totalAmount.toFixed(2)}</p>
+                ${signature ? `<p><strong>Signature:</strong> <img src="${URL.createObjectURL(signature)}" alt="Signature" style="max-width: 150px;"></p>` : ''}
+                ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ''}
+            `;
+        });
+
+        // Download Invoice as PDF
+        document.getElementById('downloadInvoice').addEventListener('click', function() {
+            const element = document.getElementById('preview');
+            html2pdf().from(element).save();
+        });
+
+        // Print Invoice
+        document.getElementById('printInvoice').addEventListener('click', function() {
+            const element = document.getElementById('preview');
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Invoice</title>');
+            printWindow.document.write('<style>body { font-family: Arial, sans-serif; }</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(element.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+    <!-- Include html2pdf library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</body>
+</html>
