@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate strong and secure passwords with our free Password Generator tool. Create random passwords for your accounts with ease.">
+    <meta name="keywords" content="password generator, secure password, random password, password creator">
+    <meta name="author" content="Your Name">
+    <title>Password Generator - Create Strong & Secure Passwords</title>
+    <style>
+        /* General Styles */
+        :root {
+            --primary-color: #00bcd4;
+            --background-color: #1e3c72;
+            --text-color: #fff;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --input-border: rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="light"] {
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: #fff;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --input-bg: #fff;
+            --input-border: #ccc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        main {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .password-generator {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            background: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+        }
+
+        button {
+            padding: 10px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #0097a7;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .result input {
+            flex: 1;
+            margin-right: 10px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .result button {
+            flex-shrink: 0;
+        }
+
+        .strength-indicator {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .strength-indicator span {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #0097a7;
+        }
+
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 15px;
+            }
+
+            input[type="number"], input[type="text"] {
+                font-size: 0.9rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="theme-toggle">🌓</button>
+
+    <header>
+        <h1>Password Generator</h1>
+        <p>Create strong and secure passwords instantly!</p>
+    </header>
+
+    <main>
+        <!-- Password Generator Form -->
+        <section class="password-generator">
+            <label for="length">Password Length:</label>
+            <input type="number" id="length" min="8" max="50" value="12">
+            
+            <label>
+                <input type="checkbox" id="uppercase" checked> Include Uppercase Letters
+            </label>
+            
+            <label>
+                <input type="checkbox" id="numbers" checked> Include Numbers
+            </label>
+            
+            <label>
+                <input type="checkbox" id="symbols" checked> Include Symbols
+            </label>
+            
+            <button id="generate">Generate Password</button>
+            
+            <div class="result">
+                <input type="text" id="password" readonly>
+                <button id="copy">Copy</button>
+            </div>
+
+            <!-- Password Strength Indicator -->
+            <div class="strength-indicator">
+                Password Strength: <span id="strength">-</span>
+            </div>
+        </section>
+
+        <!-- AdSense Ad Unit -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ by <a href="https://yourwebsite.com" target="_blank">Suraj Giri</a></p>
+        <p>Follow me: 
+            <a href="https://twitter.com/yourprofile" target="_blank">Twitter</a> | 
+            <a href="https://github.com/yourprofile" target="_blank">GitHub</a>
+        </p>
+    </footer>
+
+    <script>
+        const generateButton = document.getElementById('generate');
+        const passwordField = document.getElementById('password');
+        const copyButton = document.getElementById('copy');
+        const lengthInput = document.getElementById('length');
+        const uppercaseCheckbox = document.getElementById('uppercase');
+        const numbersCheckbox = document.getElementById('numbers');
+        const symbolsCheckbox = document.getElementById('symbols');
+        const strengthIndicator = document.getElementById('strength');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
+        const numbers = '0123456789';
+        const symbols = '!@#$%^&*()_+{}:"<>?[];\',./`~';
+
+        // Generate Password
+        generateButton.addEventListener('click', () => {
+            let characters = lowercaseLetters;
+            if (uppercaseCheckbox.checked) characters += uppercaseLetters;
+            if (numbersCheckbox.checked) characters += numbers;
+            if (symbolsCheckbox.checked) characters += symbols;
+
+            let password = '';
+            for (let i = 0; i < lengthInput.value; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            passwordField.value = password;
+            updateStrengthIndicator(password);
+        });
+
+        // Copy Password
+        copyButton.addEventListener('click', () => {
+            passwordField.select();
+            document.execCommand('copy');
+            alert('Password copied to clipboard!');
+        });
+
+        // Update Password Strength
+        function updateStrengthIndicator(password) {
+            const strength = calculatePasswordStrength(password);
+            strengthIndicator.textContent = strength;
+            strengthIndicator.style.color = strength === 'Weak' ? 'red' : strength === 'Medium' ? 'orange' : 'green';
+        }
+
+        function calculatePasswordStrength(password) {
+            const length = password.length;
+            const hasUppercase = /[A-Z]/.test(password);
+            const hasNumbers = /[0-9]/.test(password);
+            const hasSymbols = /[^A-Za-z0-9]/.test(password);
+
+            let score = 0;
+            if (length >= 12) score += 2;
+            if (hasUppercase) score += 1;
+            if (hasNumbers) score += 1;
+            if (hasSymbols) score += 1;
+
+            if (score >= 4) return 'Strong';
+            if (score >= 2) return 'Medium';
+            return 'Weak';
+        }
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.dataset.theme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+        });
+    </script>
+</body>
+</html>
