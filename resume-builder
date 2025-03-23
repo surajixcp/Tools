@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create a professional resume with our free Resume Builder tool. Easy to use and fully customizable.">
+    <meta name="keywords" content="resume builder, cv maker, professional resume, free resume builder">
+    <meta name="author" content="Suraj Giri">
+    <title>Resume Builder - Create Your Professional Resume</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- jsPDF for PDF Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- docxtemplater for DOCX Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.28.1/docxtemplater.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --background-light: #f5f7fa;
+            --background-dark: #1a1a1a;
+            --text-light: #333;
+            --text-dark: #f5f7fa;
+            --card-bg-light: #fff;
+            --card-bg-dark: #2d2d2d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-light);
+            color: var(--text-light);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin: 0;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 0.5rem 0 0;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--card-bg-light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: var(--card-bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Form Section */
+        #resume-form {
+            background: var(--card-bg-light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideInLeft 1s ease-in-out;
+            margin-bottom: 2rem;
+        }
+
+        body.dark-mode #resume-form {
+            background: var(--card-bg-dark);
+        }
+
+        #resume-form h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode #resume-form h2 {
+            color: var(--text-dark);
+        }
+
+        label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        body.dark-mode label {
+            color: var(--text-dark);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: var(--card-bg-light);
+            color: var(--text-light);
+        }
+
+        body.dark-mode input, body.dark-mode textarea {
+            background: var(--card-bg-dark);
+            color: var(--text-dark);
+            border-color: #444;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transform: scale(1.02);
+        }
+
+        /* Resume Output Section */
+        #resume-output {
+            background: var(--card-bg-light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            animation: slideInRight 1s ease-in-out;
+            display: none;
+        }
+
+        body.dark-mode #resume-output {
+            background: var(--card-bg-dark);
+        }
+
+        #resumePreview {
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: var(--card-bg-light);
+        }
+
+        body.dark-mode #resumePreview {
+            background: var(--card-bg-dark);
+            border-color: #444;
+        }
+
+        #resumePreview h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode #resumePreview h3 {
+            color: var(--text-dark);
+        }
+
+        #resumePreview p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            color: var(--text-light);
+        }
+
+        body.dark-mode #resumePreview p {
+            color: var(--text-dark);
+        }
+
+        #resumePreview h4 {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode #resumePreview h4 {
+            color: var(--text-dark);
+        }
+
+        /* Template Selector */
+        .template-selector {
+            margin-bottom: 2rem;
+        }
+
+        .template-selector h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .template-selector h3 {
+            color: var(--text-dark);
+        }
+
+        .template-selector .templates {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .template-selector .template {
+            flex: 1 1 calc(33.333% - 1rem);
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--card-bg-light);
+        }
+
+        body.dark-mode .template-selector .template {
+            background: var(--card-bg-dark);
+            border-color: #444;
+        }
+
+        .template-selector .template:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-selector .template img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .template-selector .template p {
+            text-align: center;
+            margin: 0.5rem 0 0;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .template-selector .template p {
+            color: var(--text-dark);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar .progress {
+            height: 10px;
+            background: var(--primary-color);
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--card-bg-light);
+            color: var(--text-light);
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        body.dark-mode .toast {
+            background: var(--card-bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            #resume-form, #resume-output {
+                padding: 1.5rem;
+            }
+
+            #resumePreview h3 {
+                font-size: 1.5rem;
+            }
+
+            #resumePreview h4 {
+                font-size: 1.1rem;
+            }
+
+            .template-selector .template {
+                flex: 1 1 calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .template-selector .template {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-file-alt"></i> Resume Builder</h1>
+        <p>Create your professional resume in minutes!</p>
+    </header>
+
+    <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i> Dark Mode</button>
+
+    <main>
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+
+        <!-- Template Selector -->
+        <div class="template-selector">
+            <h3><i class="fas fa-palette"></i> Choose a Template</h3>
+            <div class="templates">
+                <div class="template" data-template="basic">
+                    <img src="https://via.placeholder.com/300x200" alt="Basic Template">
+                    <p>Basic</p>
+                </div>
+                <div class="template" data-template="modern">
+                    <img src="https://via.placeholder.com/300x200" alt="Modern Template">
+                    <p>Modern</p>
+                </div>
+                <div class="template" data-template="creative">
+                    <img src="https://via.placeholder.com/300x200" alt="Creative Template">
+                    <p>Creative</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resume Form -->
+        <section id="resume-form">
+            <h2><i class="fas fa-edit"></i> Enter Your Details</h2>
+            <form id="resumeForm">
+                <label for="name"><i class="fas fa-user"></i> Full Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone"><i class="fas fa-phone"></i> Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="jobTitle"><i class="fas fa-briefcase"></i> Job Title:</label>
+                <input type="text" id="jobTitle" name="jobTitle" required>
+
+                <label for="education"><i class="fas fa-graduation-cap"></i> Education:</label>
+                <textarea id="education" name="education" required></textarea>
+
+                <label for="experience"><i class="fas fa-briefcase"></i> Experience:</label>
+                <textarea id="experience" name="experience" required></textarea>
+
+                <label for="skills"><i class="fas fa-tools"></i> Skills:</label>
+                <textarea id="skills" name="skills" required></textarea>
+
+                <button type="submit"><i class="fas fa-magic"></i> Generate Resume</button>
+            </form>
+        </section>
+
+        <!-- Resume Output -->
+        <section id="resume-output">
+            <h2><i class="fas fa-file-download"></i> Your Resume</h2>
+            <div id="resumePreview"></div>
+            <button id="downloadResume"><i class="fas fa-download"></i> Download Resume</button>
+        </section>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">Resume generated successfully!</div>
+
+        <!-- AdSense Ad Unit -->
+        <div class="ad-container">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                    crossorigin="anonymous"></script>
+            <!-- Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Resume Builder. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for Dynamic Functionality
+        document.getElementById('resumeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const education = document.getElementById('education').value;
+            const experience = document.getElementById('experience').value;
+            const skills = document.getElementById('skills').value;
+
+            const resumePreview = document.getElementById('resumePreview');
+            resumePreview.innerHTML = `
+                <h3>${name}</h3>
+                <p>Email: ${email}</p>
+                <p>Phone: ${phone}</p>
+                <h4>Job Title</h4>
+                <p>${jobTitle}</p>
+                <h4>Education</h4>
+                <p>${education}</p>
+                <h4>Experience</h4>
+                <p>${experience}</p>
+                <h4>Skills</h4>
+                <p>${skills}</p>
+            `;
+
+            document.getElementById('resume-output').style.display = 'block';
+            document.getElementById('progressBar').style.width = '100%';
+
+            // Show Toast Notification
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        });
+
+        document.getElementById('downloadResume').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const resumeContent = document.getElementById('resumePreview').innerText;
+            doc.text(resumeContent, 10, 10);
+            doc.save('resume.pdf');
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            darkModeToggle.innerHTML = document.body.classList.contains('dark-mode') ? '<i class="fas fa-sun"></i> Light Mode' : '<i class="fas fa-moon"></i> Dark Mode';
+        });
+
+        // Template Selector
+        const templates = document.querySelectorAll('.template');
+        templates.forEach(template => {
+            template.addEventListener('click', () => {
+                alert(`Selected Template: ${template.dataset.template}`);
+                // Add logic to apply the selected template
+            });
+        });
+
+        // Progress Bar Animation
+        const progressBar = document.getElementById('progressBar');
+        document.getElementById('resumeForm').addEventListener('input', () => {
+            const inputs = document.querySelectorAll('#resumeForm input, #resumeForm textarea');
+            let filled = 0;
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') filled++;
+            });
+            progressBar.style.width = `${(filled / inputs.length) * 100}%`;
+        });
+
+        // Auto-Generate Key Skills
+        const jobTitleInput = document.getElementById('jobTitle');
+        const skillsTextarea = document.getElementById('skills');
+        const skillSuggestions = {
+            'Software Engineer': ['JavaScript', 'Python', 'React', 'Node.js', 'SQL'],
+            'Data Scientist': ['Python', 'R', 'Machine Learning', 'Pandas', 'NumPy'],
+            'Graphic Designer': ['Adobe Photoshop', 'Illustrator', 'Figma', 'Typography', 'UI/UX Design'],
+        };
+
+        jobTitleInput.addEventListener('input', () => {
+            const jobTitle = jobTitleInput.value.trim();
+            if (skillSuggestions[jobTitle]) {
+                skillsTextarea.value = skillSuggestions[jobTitle].join(', ');
+            }
+        });
+    </script>
+</body>
+</html>
