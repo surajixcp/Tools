@@ -1,0 +1,35 @@
+[
+    {
+        "code": "US",
+        "name": "United States",
+        "states": [
+            {
+                "code": "CA",
+                "name": "California",
+                "cities": ["Los Angeles", "San Francisco", "San Diego"]
+            },
+            {
+                "code": "NY",
+                "name": "New York",
+                "cities": ["New York City", "Buffalo", "Rochester"]
+            }
+        ]
+    },
+    {
+        "code": "IN",
+        "name": "India",
+        "states": [
+            {
+                "code": "DL",
+                "name": "Delhi",
+                "cities": ["New Delhi", "Noida", "Gurgaon"]
+            },
+            {
+                "code": "MH",
+                "name": "Maharashtra",
+                "cities": ["Mumbai", "Pune", "Nagpur"]
+            }
+        ]
+    }
+    // Add more countries, states, and cities as needed
+]
