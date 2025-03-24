@@ -28,6 +28,7 @@
             background-color: var(--background-light);
             color: var(--text-light);
             transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 80px; /* Add padding to prevent footer overlap */
         }
 
         body.dark-mode {
@@ -55,6 +56,7 @@
             border-radius: 10px;
             box-shadow: var(--card-shadow);
             animation: fadeIn 1s ease-in-out;
+            margin-bottom: 2rem;
         }
 
         #invoice-form label {
@@ -110,6 +112,7 @@
             padding: 1.5rem;
             margin-top: 1rem;
             border-radius: 5px;
+            overflow-x: auto;
         }
 
         #preview img {
@@ -123,6 +126,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
+            min-width: 600px;
         }
 
         #itemsTable th, #itemsTable td {
@@ -136,6 +140,13 @@
             font-weight: bold;
         }
 
+        .item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(0,0,0,0.05);
+            border-radius: 5px;
+        }
+
         footer {
             background-color: var(--background-dark);
             color: white;
@@ -144,6 +155,29 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
         }
 
         /* Dark Mode Toggle */
@@ -163,6 +197,7 @@
             justify-content: center;
             box-shadow: var(--card-shadow);
             transition: background-color 0.3s ease;
+            z-index: 1000;
         }
 
         #dark-mode-toggle:hover {
@@ -191,6 +226,14 @@
 
             #preview img {
                 max-width: 100px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons button {
+                width: 100%;
             }
         }
     </style>
@@ -224,7 +267,7 @@
             <h2>Create Your Invoice</h2>
             <form id="invoiceForm">
                 <!-- Company Details -->
-                <h3>Your Company Details</h3>
+                <h3>Company Details</h3>
                 <label for="companyLogo">Company Logo:</label>
                 <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
 
@@ -326,8 +369,10 @@
         <section id="invoice-preview">
             <h2>Invoice Preview</h2>
             <div id="preview"></div>
-            <button id="downloadInvoice">Download Invoice</button>
-            <button id="printInvoice">Print Invoice</button>
+            <div class="action-buttons">
+                <button id="downloadInvoice">Download Invoice</button>
+                <button id="printInvoice">Print Invoice</button>
+            </div>
         </section>
     </main>
 
@@ -343,11 +388,26 @@
         const darkModeToggle = document.getElementById('dark-mode-toggle');
         darkModeToggle.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
+            // Change icon based on mode
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+            } else {
+                darkModeToggle.textContent = '🌙';
+            }
         });
 
         // Auto-Generate Invoice Number
         const invoiceNumberField = document.getElementById('invoiceNumber');
         invoiceNumberField.value = `INV-${Math.floor(Math.random() * 100000)}`;
+
+        // Set today's date as default
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').value = today;
+        
+        // Set due date to 15 days from today by default
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 15);
+        document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
 
         // Add More Items
         document.getElementById('addItem').addEventListener('click', function() {
@@ -366,6 +426,9 @@
                 <input type="number" id="price${itemCount}" name="price${itemCount}" required>
             `;
             itemsContainer.appendChild(newItem);
+            
+            // Scroll to the new item
+            newItem.scrollIntoView({ behavior: 'smooth' });
         });
 
         // Generate Invoice
@@ -391,9 +454,9 @@
             const dueDate = document.getElementById('dueDate').value;
             const paymentTerms = document.getElementById('paymentTerms').value;
             const currency = document.getElementById('currency').value;
-            const discount = parseFloat(document.getElementById('discount').value);
+            const discount = parseFloat(document.getElementById('discount').value) || 0;
             const gstType = document.getElementById('gstType').value;
-            const gstRate = parseFloat(document.getElementById('gstRate').value);
+            const gstRate = parseFloat(document.getElementById('gstRate').value) || 0;
             const signature = document.getElementById('signature').files[0];
             const notes = document.getElementById('notes').value;
 
@@ -401,9 +464,12 @@
             let items = [];
             let subtotal = 0;
             for (let i = 1; i <= itemCount; i++) {
+                const itemElement = document.getElementById(`item${i}`);
+                if (!itemElement) continue; // Skip if item doesn't exist
+                
                 const item = document.getElementById(`item${i}`).value;
-                const quantity = parseFloat(document.getElementById(`quantity${i}`).value);
-                const price = parseFloat(document.getElementById(`price${i}`).value);
+                const quantity = parseFloat(document.getElementById(`quantity${i}`).value) || 0;
+                const price = parseFloat(document.getElementById(`price${i}`).value) || 0;
                 const total = quantity * price;
                 subtotal += total;
                 items.push({ item, quantity, price, total });
@@ -428,10 +494,10 @@
             // Display Invoice Preview
             const preview = document.getElementById('preview');
             preview.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                     ${companyLogo ? `<img src="${URL.createObjectURL(companyLogo)}" alt="Company Logo">` : ''}
-                    <div>
-                        <h4>Your Company Details</h4>
+                    <div style="flex: 1; min-width: 250px; margin-top: 1rem;">
+                        <h4>${companyName || 'Company'} Details</h4>
                         <p><strong>Name:</strong> ${companyName}</p>
                         <p><strong>Address:</strong> ${companyAddress}</p>
                         <p><strong>Contact:</strong> ${companyContact}</p>
@@ -447,10 +513,16 @@
                     <p><strong>GST Number:</strong> ${clientGST}</p>
                 </div>
                 <hr>
-                <p><strong>Invoice Number:</strong> ${invoiceNumber}</p>
-                <p><strong>Date:</strong> ${date}</p>
-                <p><strong>Due Date:</strong> ${dueDate}</p>
-                <p><strong>Payment Terms:</strong> ${paymentTerms}</p>
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                    <div>
+                        <p><strong>Invoice Number:</strong> ${invoiceNumber}</p>
+                        <p><strong>Date:</strong> ${new Date(date).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                        <p><strong>Due Date:</strong> ${new Date(dueDate).toLocaleDateString()}</p>
+                        <p><strong>Payment Terms:</strong> ${paymentTerms}</p>
+                    </div>
+                </div>
                 <h4>Items</h4>
                 <table id="itemsTable">
                     <thead>
@@ -472,25 +544,41 @@
                         `).join('')}
                     </tbody>
                 </table>
-                <p><strong>Subtotal:</strong> ${currency}${subtotal.toFixed(2)}</p>
-                <p><strong>Discount (${discount}%):</strong> ${currency}${discountAmount.toFixed(2)}</p>
-                <p><strong>Taxable Amount:</strong> ${currency}${taxableAmount.toFixed(2)}</p>
-                ${gstType === "cgst_sgst" ? `
-                    <p><strong>CGST (${gstRate / 2}%):</strong> ${currency}${cgst.toFixed(2)}</p>
-                    <p><strong>SGST (${gstRate / 2}%):</strong> ${currency}${sgst.toFixed(2)}</p>
-                ` : `
-                    <p><strong>IGST (${gstRate}%):</strong> ${currency}${igst.toFixed(2)}</p>
-                `}
-                <p><strong>Total Amount:</strong> ${currency}${totalAmount.toFixed(2)}</p>
-                ${signature ? `<p><strong>Signature:</strong> <img src="${URL.createObjectURL(signature)}" alt="Signature" style="max-width: 150px;"></p>` : ''}
-                ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ''}
+                <div style="margin-top: 1rem; text-align: right;">
+                    <p><strong>Subtotal:</strong> ${currency}${subtotal.toFixed(2)}</p>
+                    ${discount > 0 ? `<p><strong>Discount (${discount}%):</strong> ${currency}${discountAmount.toFixed(2)}</p>` : ''}
+                    <p><strong>Taxable Amount:</strong> ${currency}${taxableAmount.toFixed(2)}</p>
+                    ${gstType === "cgst_sgst" ? `
+                        <p><strong>CGST (${gstRate / 2}%):</strong> ${currency}${cgst.toFixed(2)}</p>
+                        <p><strong>SGST (${gstRate / 2}%):</strong> ${currency}${sgst.toFixed(2)}</p>
+                    ` : `
+                        <p><strong>IGST (${gstRate}%):</strong> ${currency}${igst.toFixed(2)}</p>
+                    `}
+                    <p style="font-size: 1.2em; font-weight: bold; border-top: 1px solid #ddd; padding-top: 0.5rem;">
+                        <strong>Total Amount:</strong> ${currency}${totalAmount.toFixed(2)}
+                    </p>
+                </div>
+                ${signature ? `<div style="margin-top: 2rem;"><strong>Signature:</strong> <img src="${URL.createObjectURL(signature)}" alt="Signature" style="max-width: 150px; display: block; margin-top: 0.5rem;"></div>` : ''}
+                ${notes ? `<div style="margin-top: 1rem;"><strong>Notes:</strong> <p>${notes}</p></div>` : ''}
             `;
+            
+            // Scroll to preview
+            document.getElementById('invoice-preview').scrollIntoView({ behavior: 'smooth' });
         });
 
         // Download Invoice as PDF
         document.getElementById('downloadInvoice').addEventListener('click', function() {
             const element = document.getElementById('preview');
-            html2pdf().from(element).save();
+            const opt = {
+                margin: 10,
+                filename: `invoice_${document.getElementById('invoiceNumber').value}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // New Promise-based usage:
+            html2pdf().set(opt).from(element).save();
         });
 
         // Print Invoice
@@ -498,13 +586,123 @@
             const element = document.getElementById('preview');
             const printWindow = window.open('', '', 'height=600,width=800');
             printWindow.document.write('<html><head><title>Invoice</title>');
-            printWindow.document.write('<style>body { font-family: Arial, sans-serif; }</style>');
+            printWindow.document.write('<style>body { font-family: Arial, sans-serif; margin: 20px; } table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #ddd; padding: 8px; text-align: left; } th { background-color: #f2f2f2; }</style>');
             printWindow.document.write('</head><body>');
             printWindow.document.write(element.innerHTML);
             printWindow.document.write('</body></html>');
             printWindow.document.close();
-            printWindow.print();
+            setTimeout(function() {
+                printWindow.print();
+            }, 200);
         });
+
+        // Download Invoice as PDF - UPDATED VERSION
+        document.getElementById('downloadInvoice').addEventListener('click', function() {
+            // First, check if html2pdf is available
+            if (typeof html2pdf === 'undefined') {
+                alert('PDF library is still loading. Please try again in a moment.');
+                return;
+            }
+
+            const element = document.getElementById('preview');
+            const opt = {
+                margin: 10,
+                filename: `invoice_${document.getElementById('invoiceNumber').value}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    logging: true,
+                    useCORS: true
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+            
+            // Show loading feedback
+            const downloadBtn = document.getElementById('downloadInvoice');
+            const originalText = downloadBtn.textContent;
+            downloadBtn.textContent = 'Generating PDF...';
+            downloadBtn.disabled = true;
+
+            // Generate PDF
+            html2pdf()
+                .set(opt)
+                .from(element)
+                .save()
+                .then(() => {
+                    downloadBtn.textContent = originalText;
+                    downloadBtn.disabled = false;
+                })
+                .catch(err => {
+                    console.error('PDF generation failed:', err);
+                    alert('Failed to generate PDF. Please try again.');
+                    downloadBtn.textContent = originalText;
+                    downloadBtn.disabled = false;
+                });
+        });
+
+        // Print Invoice - UPDATED VERSION
+        document.getElementById('printInvoice').addEventListener('click', function() {
+            const element = document.getElementById('preview').cloneNode(true);
+            
+            // Remove any existing print-specific styles
+            const printStyles = document.querySelector('style[data-print]');
+            if (printStyles) printStyles.remove();
+            
+            // Create print-specific styles
+            const style = document.createElement('style');
+            style.setAttribute('data-print', 'true');
+            style.textContent = `
+                @media print {
+                    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; color: #000; }
+                    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                    img { max-width: 150px !important; }
+                    .no-print { display: none !important; }
+                }
+            `;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Invoice ${document.getElementById('invoiceNumber').value}</title>
+                    </head>
+                    <body>
+                        ${element.innerHTML}
+                    </body>
+                </html>
+            `);
+            printWindow.document.head.appendChild(style);
+            printWindow.document.close();
+            
+            // Wait for content to load before printing
+            printWindow.onload = function() {
+                setTimeout(() => {
+                    printWindow.print();
+                    printWindow.close();
+                }, 500);
+            };
+        });
+
+        // Load html2pdf library dynamically if not already loaded
+        if (typeof html2pdf === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            script.onload = function() {
+                console.log('html2pdf library loaded successfully');
+            };
+            script.onerror = function() {
+                console.error('Failed to load html2pdf library');
+                document.getElementById('downloadInvoice').disabled = true;
+                document.getElementById('downloadInvoice').title = 'PDF library failed to load';
+            };
+            document.head.appendChild(script);
+        }
     </script>
     <!-- Include html2pdf library for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
