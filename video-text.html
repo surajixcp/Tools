@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to convert videos from YouTube, Instagram, Facebook, and Twitter into text transcripts. Perfect for content creators, students, and researchers.">
+    <meta name="keywords" content="video to text, transcript generator, YouTube transcript, Instagram caption extractor, Facebook video to text, Twitter video converter">
+    <meta name="author" content="VideoTextConverter">
+    <meta name="robots" content="index, follow">
+    <title>Video to Text Converter | Extract Text from YouTube, Instagram, Facebook Videos</title>
+    <link rel="canonical" href="https://yourwebsite.com/video-to-text" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-color: #f8f9fa;
+            --dark-color: #202124;
+            --gray-color: #5f6368;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.8rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        main {
+            padding: 2.5rem 0;
+        }
+        
+        .converter-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 1.8rem;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-color);
+            font-size: 0.95rem;
+        }
+        
+        input[type="url"], input[type="text"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #fcfcfc;
+        }
+        
+        input[type="url"]:focus, input[type="text"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+            background-color: white;
+        }
+        
+        .platform-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 1.8rem;
+        }
+        
+        .platform-btn {
+            padding: 10px 18px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .platform-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .platform-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+        
+        .platform-btn i {
+            font-size: 1.1rem;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 1.8rem;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn i {
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--light-color);
+            color: var(--gray-color);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #e8e8e8;
+            transform: translateY(-2px);
+        }
+        
+        .result-section {
+            margin-top: 2.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-container {
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            background: #fafafa;
+            min-height: 220px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .result-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .result-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .result-container::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        
+        .result-container::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            display: none;
+            overflow: hidden;
+            height: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .status-message {
+            font-size: 0.95rem;
+            color: var(--gray-color);
+            margin-top: 0.8rem;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .error-message {
+            color: var(--accent-color);
+            background-color: #fdecea;
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            display: none;
+            border-left: 4px solid var(--accent-color);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .error-message i {
+            margin-right: 8px;
+        }
+        
+        .api-key-container {
+            margin-bottom: 1.8rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .api-key-container .info-text {
+            font-size: 0.85rem;
+            color: var(--gray-color);
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .ad-container {
+            background: #f0f0f0;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2.5rem 0;
+            text-align: center;
+            border: 1px dashed #ccc;
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .guide-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .guide-item {
+            margin-bottom: 1.8rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .guide-item:hover {
+            border-left-color: var(--secondary-color);
+        }
+        
+        .guide-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .guide-title .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 2.5rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            transition: var(--transition);
+            text-align: center;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            background: rgba(66, 133, 244, 0.1);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
+        }
+        
+        .feature-card p {
+            color: var(--gray-color);
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary-color);
+            transform: translateX(3px);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .converter-section, .guide-section {
+                padding: 1.8rem;
+            }
+            
+            .action-btns {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .platform-options {
+                justify-content: center;
+            }
+            
+            .features-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: var(--transition);
+            border: none;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .converter-section,
+        body.dark-mode .guide-section,
+        body.dark-mode .feature-card {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-color: #333;
+        }
+        
+        body.dark-mode input[type="url"],
+        body.dark-mode input[type="text"],
+        body.dark-mode .result-container {
+            background-color: #252525;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+        
+        body.dark-mode .btn-secondary {
+            background-color: #333;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+        
+        body.dark-mode .section-title,
+        body.dark-mode .feature-title,
+        body.dark-mode .guide-title {
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode .error-message {
+            background-color: #2a1a1a;
+            color: #ff8a80;
+        }
+        
+        /* SEO Optimized Elements */
+        .schema-markup {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-closed-captioning"></i>
+                Video2Text Converter
+            </h1>
+            <p class="tagline">Extract text from YouTube, Instagram, Facebook, and Twitter videos in seconds</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Ad Container Top -->
+        <div class="ad-container">
+            <div class="ad-label">
+                <i class="fas fa-ad"></i>
+                Advertisement
+            </div>
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- Video2Text Top Banner -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <section class="converter-section">
+            <h2 class="section-title">
+                <i class="fas fa-video"></i>
+                Video to Text Converter
+            </h2>
+            
+            <div class="error-message" id="error-message" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="error-text"></span>
+            </div>
+            
+            <div class="input-group">
+                <label for="video-url">
+                    <i class="fas fa-link"></i>
+                    Paste Video URL
+                </label>
+                <input type="url" id="video-url" placeholder="https://www.youtube.com/watch?v=..." required>
+            </div>
+            
+            <div class="platform-options">
+                <button class="platform-btn active" data-platform="youtube">
+                    <i class="fab fa-youtube"></i>
+                    YouTube
+                </button>
+                <button class="platform-btn" data-platform="instagram">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </button>
+                <button class="platform-btn" data-platform="facebook">
+                    <i class="fab fa-facebook"></i>
+                    Facebook
+                </button>
+                <button class="platform-btn" data-platform="twitter">
+                    <i class="fab fa-twitter"></i>
+                    Twitter
+                </button>
+                <button class="platform-btn" data-platform="other">
+                    <i class="fas fa-video"></i>
+                    Other
+                </button>
+            </div>
+            
+            <div class="api-key-container" id="api-key-container" style="display: none;">
+                <label for="api-key">
+                    <i class="fas fa-key"></i>
+                    AssemblyAI API Key
+                </label>
+                <input type="text" id="api-key" placeholder="Using pre-configured API key" readonly>
+                <p class="info-text">
+                    <i class="fas fa-info-circle"></i>
+                    Professional transcription service enabled with your API key
+                </p>
+            </div>
+            
+            <div class="action-btns">
+                <button id="convert-btn" class="btn btn-primary">
+                    <i class="fas fa-exchange-alt"></i>
+                    Convert to Text
+                </button>
+                <button id="clear-btn" class="btn btn-secondary">
+                    <i class="fas fa-trash-alt"></i>
+                    Clear
+                </button>
+            </div>
+            
+            <div class="progress-container" id="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <div class="status-message" id="status-message">Initializing...</div>
+            </div>
+            
+            <div class="loading" id="loading-indicator">
+                <div class="loading-spinner"></div>
+                <p id="loading-text">Processing video... This may take a moment.</p>
+            </div>
+            
+            <div class="result-section">
+                <label for="result-text">
+                    <i class="fas fa-file-alt"></i>
+                    Transcript Result
+                </label>
+                <div class="result-container" id="result-text">
+                    <p style="color: #999;">Your video transcript will appear here...</p>
+                </div>
+                <div class="action-btns" style="margin-top: 1.5rem;">
+                    <button id="copy-btn" class="btn btn-secondary">
+                        <i class="fas fa-copy"></i>
+                        Copy Text
+                    </button>
+                    <button id="download-btn" class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Download as TXT
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Middle Ad Container -->
+        <div class="ad-container">
+            <div class="ad-label">
+                <i class="fas fa-ad"></i>
+                Advertisement
+            </div>
+            <!-- Replace with your Google AdSense code -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <section class="guide-section">
+            <h2 class="section-title">
+                <i class="fas fa-question-circle"></i>
+                How to Convert Videos to Text
+            </h2>
+            
+            <div class="guide-item">
+                <h3 class="guide-title">
+                    <span class="step-number">1</span>
+                    Find Your Video
+                </h3>
+                <p>Locate the video you want to convert on YouTube, Instagram, Facebook, or Twitter. Copy the video URL from your browser's address bar or share options.</p>
+            </div>
+            
+            <div class="guide-item">
+                <h3 class="guide-title">
+                    <span class="step-number">2</span>
+                    Paste the URL
+                </h3>
+                <p>Paste the video URL into the input field above. The tool will automatically detect the platform, but you can manually select it if needed.</p>
+            </div>
+            
+            <div class="guide-item">
+                <h3 class="guide-title">
+                    <span class="step-number">3</span>
+                    Convert to Text
+                </h3>
+                <p>Click the "Convert to Text" button. Our tool will process the video and extract the audio content as text using advanced speech recognition technology.</p>
+                <p style="margin-top: 0.5rem;"><strong>For best accuracy:</strong> The tool uses your AssemblyAI API key for professional-grade transcription quality.</p>
+            </div>
+            
+            <div class="guide-item">
+                <h3 class="guide-title">
+                    <span class="step-number">4</span>
+                    Copy or Download
+                </h3>
+                <p>Once processed, you can copy the text to your clipboard or download it as a text file for offline use, research, or content creation.</p>
+            </div>
+        </section>
+        
+        <section class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="feature-title">Accurate Transcription</h3>
+                <p>Leveraging AssemblyAI's advanced speech recognition for high accuracy conversion, even with background noise or multiple speakers.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Fast Processing</h3>
+                <p>Optimized pipeline delivers quick results without compromising quality. Get transcripts in minutes, not hours.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3 class="feature-title">Secure & Private</h3>
+                <p>Your content is processed securely and never stored permanently. All transcriptions are confidential.</p>
+            </div>
+        </section>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <div class="ad-label">
+                <i class="fas fa-ad"></i>
+                Advertisement
+            </div>
+            <!-- Replace with your Google AdSense code -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-shield-alt"></i>
+                        Privacy Policy
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-file-contract"></i>
+                        Terms of Service
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-envelope"></i>
+                        Contact Us
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-question-circle"></i>
+                        FAQ
+                    </a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2023 Video2Text Converter. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <button class="dark-mode-toggle" id="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <!-- Schema.org markup for SEO -->
+    <script type="application/ld+json" class="schema-markup">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Video2Text Converter",
+        "url": "https://yourwebsite.com/video-to-text",
+        "description": "Free online tool to convert videos from YouTube, Instagram, Facebook, and Twitter into text transcripts using professional speech recognition technology.",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Video2Text Converter"
+        }
+    }
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pre-configured API key
+            const DEFAULT_API_KEY = 'c015d2786cf746318bcc532909c48c4c';
+            
+            // UI Elements
+            const convertBtn = document.getElementById('convert-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const videoUrlInput = document.getElementById('video-url');
+            const resultText = document.getElementById('result-text');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const loadingText = document.getElementById('loading-text');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const statusMessage = document.getElementById('status-message');
+            const errorMessage = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+            const apiKeyContainer = document.getElementById('api-key-container');
+            const apiKeyInput = document.getElementById('api-key');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            
+            // Set default API key
+            apiKeyInput.value = DEFAULT_API_KEY;
+            
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const icon = this.querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            // Platform selection
+            const platformBtns = document.querySelectorAll('.platform-btn');
+            platformBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    platformBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show API key field only for "Other" platform
+                    if (this.dataset.platform === 'other') {
+                        apiKeyContainer.style.display = 'block';
+                    } else {
+                        apiKeyContainer.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Auto-detect platform from URL
+            videoUrlInput.addEventListener('input', function() {
+                const url = this.value.trim();
+                if (!url) return;
+                
+                try {
+                    const urlObj = new URL(url);
+                    const hostname = urlObj.hostname;
+                    
+                    if (hostname.includes('youtube.com') || hostname.includes('youtu.be')) {
+                        document.querySelector('.platform-btn[data-platform="youtube"]').click();
+                    } else if (hostname.includes('instagram.com')) {
+                        document.querySelector('.platform-btn[data-platform="instagram"]').click();
+                    } else if (hostname.includes('facebook.com')) {
+                        document.querySelector('.platform-btn[data-platform="facebook"]').click();
+                    } else if (hostname.includes('twitter.com') || hostname.includes('x.com')) {
+                        document.querySelector('.platform-btn[data-platform="twitter"]').click();
+                    } else {
+                        document.querySelector('.platform-btn[data-platform="other"]').click();
+                    }
+                } catch (e) {
+                    // Invalid URL, do nothing
+                }
+            });
+            
+            // Convert button functionality
+            convertBtn.addEventListener('click', async function() {
+                const videoUrl = videoUrlInput.value.trim();
+                const selectedPlatform = document.querySelector('.platform-btn.active').dataset.platform;
+                const apiKey = DEFAULT_API_KEY; // Always use the default API key
+                
+                // Reset UI
+                errorMessage.style.display = 'none';
+                resultText.innerHTML = '<p style="color: #999;">Processing your video...</p>';
+                
+                // Validate input
+                if (!videoUrl) {
+                    showError('Please enter a video URL');
+                    return;
+                }
+                
+                try {
+                    new URL(videoUrl);
+                } catch (e) {
+                    showError('Please enter a valid URL');
+                    return;
+                }
+                
+                // Show loading state
+                convertBtn.disabled = true;
+                loadingIndicator.style.display = 'block';
+                progressContainer.style.display = 'block';
+                
+                try {
+                    // Update progress
+                    updateProgress(10, 'Validating video URL...');
+                    
+                    // Process the video
+                    const transcript = await processVideo(videoUrl, selectedPlatform, apiKey);
+                    
+                    // Show success
+                    updateProgress(100, 'Transcription complete!');
+                    loadingText.textContent = 'Processing complete!';
+                    
+                    // Display the transcript
+                    resultText.innerHTML = formatTranscript(transcript);
+                    
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    convertBtn.disabled = false;
+                    loadingIndicator.style.display = 'none';
+                }
+            });
+            
+            // Process video with AssemblyAI API
+            async function processVideo(videoUrl, platform, apiKey) {
+                try {
+                    // For YouTube, we can use direct URL
+                    if (platform === 'youtube') {
+                        updateProgress(20, 'Preparing YouTube video...');
+                        return await transcribeWithAssemblyAI(videoUrl, apiKey);
+                    }
+                    // For other platforms, we'd need to handle differently
+                    else {
+                        updateProgress(20, 'Processing video...');
+                        
+                        // In a real implementation, you would need to:
+                        // 1. Download the video from the platform (may require backend)
+                        // 2. Extract audio
+                        // 3. Upload to AssemblyAI or similar service
+                        
+                        // For now, we'll just use the API key directly
+                        return await transcribeWithAssemblyAI(videoUrl, apiKey);
+                    }
+                } catch (error) {
+                    throw new Error(`Failed to process video: ${error.message}`);
+                }
+            }
+            
+            // Transcribe using AssemblyAI API
+            async function transcribeWithAssemblyAI(audioUrl, apiKey) {
+                updateProgress(30, 'Starting transcription...');
+                
+                try {
+                    // Step 1: Submit transcription request
+                    updateProgress(40, 'Submitting to AssemblyAI...');
+                    const submitResponse = await fetch('https://api.assemblyai.com/v2/transcript', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': apiKey,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            audio_url: audioUrl,
+                            speaker_labels: true,
+                            auto_highlights: true,
+                            sentiment_analysis: true
+                        })
+                    });
+                    
+                    if (!submitResponse.ok) {
+                        const errorData = await submitResponse.json();
+                        throw new Error(errorData.error || 'Failed to submit transcription request');
+                    }
+                    
+                    const submitData = await submitResponse.json();
+                    const transcriptId = submitData.id;
+                    
+                    // Step 2: Poll for results
+                    let transcriptData;
+                    let status = 'processing';
+                    const pollingEndpoint = `https://api.assemblyai.com/v2/transcript/${transcriptId}`;
+                    
+                    while (status !== 'completed' && status !== 'error') {
+                        updateProgress(50 + Math.random() * 30, 'Transcribing audio...');
+                        await new Promise(resolve => setTimeout(resolve, 3000));
+                        
+                        const pollingResponse = await fetch(pollingEndpoint, {
+                            headers: {
+                                'Authorization': apiKey
+                            }
+                        });
+                        
+                        if (!pollingResponse.ok) {
+                            throw new Error('Failed to get transcription status');
+                        }
+                        
+                        transcriptData = await pollingResponse.json();
+                        status = transcriptData.status;
+                        
+                        if (status === 'error') {
+                            throw new Error(transcriptData.error || 'Transcription failed');
+                        }
+                    }
+                    
+                    updateProgress(90, 'Finalizing transcript...');
+                    
+                    // Format the transcript with additional data if available
+                    let formattedTranscript = transcriptData.text || 'No transcript text returned';
+                    
+                    if (transcriptData.auto_highlights_result?.results) {
+                        formattedTranscript += '\n\n=== Highlights ===\n';
+                        transcriptData.auto_highlights_result.results.forEach(highlight => {
+                            formattedTranscript += `- ${highlight.text} (${highlight.timestamp.start.toFixed(2)}s)\n`;
+                        });
+                    }
+                    
+                    if (transcriptData.sentiment_analysis_results?.results) {
+                        formattedTranscript += '\n=== Sentiment Analysis ===\n';
+                        transcriptData.sentiment_analysis_results.results.forEach(sentiment => {
+                            formattedTranscript += `[${sentiment.timestamp.start.toFixed(2)}s] ${sentiment.sentiment}: ${sentiment.text}\n`;
+                        });
+                    }
+                    
+                    return formattedTranscript;
+                    
+                } catch (error) {
+                    console.error('Transcription error:', error);
+                    throw new Error(`Transcription failed: ${error.message}`);
+                }
+            }
+            
+            // Format transcript for display
+            function formatTranscript(text) {
+                if (!text) return '<p>No transcript could be generated.</p>';
+                
+                // Basic formatting for timestamps and speaker labels
+                let formattedText = text
+                    .replace(/\[(\d{2}:\d{2}:\d{2})\]/g, '<span class="timestamp">[$1]</span>')
+                    .replace(/Speaker \d+/g, '<span class="speaker">$&</span>');
+                
+                return `<pre>${formattedText}</pre>`;
+            }
+            
+            // Update progress bar and status
+            function updateProgress(percent, message) {
+                progressBar.style.width = percent + '%';
+                statusMessage.textContent = message;
+            }
+            
+            // Show error message
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.style.display = 'block';
+                resultText.innerHTML = '<p style="color: #999;">Your video transcript will appear here...</p>';
+            }
+            
+            // Clear button functionality
+            clearBtn.addEventListener('click', function() {
+                videoUrlInput.value = '';
+                resultText.innerHTML = '<p style="color: #999;">Your video transcript will appear here...</p>';
+                document.querySelector('.platform-btn[data-platform="youtube"]').click();
+                errorMessage.style.display = 'none';
+                progressContainer.style.display = 'none';
+                loadingIndicator.style.display = 'none';
+                convertBtn.disabled = false;
+                apiKeyContainer.style.display = 'none';
+            });
+            
+            // Copy button functionality
+            copyBtn.addEventListener('click', function() {
+                const textToCopy = resultText.innerText;
+                if (!textToCopy || textToCopy.includes('Your video transcript will appear here')) {
+                    showError('No transcript to copy');
+                    return;
+                }
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Show copied notification
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    showError('Failed to copy text: ' + err.message);
+                });
+            });
+            
+            // Download button functionality
+            downloadBtn.addEventListener('click', function() {
+                const textToDownload = resultText.innerText;
+                if (!textToDownload || textToDownload.includes('Your video transcript will appear here')) {
+                    showError('No transcript to download');
+                    return;
+                }
+                
+                const blob = new Blob([textToDownload], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = getDownloadFilename();
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                // Show downloaded notification
+                const originalText = downloadBtn.innerHTML;
+                downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+                setTimeout(() => {
+                    downloadBtn.innerHTML = originalText;
+                }, 2000);
+            });
+            
+            // Generate filename based on platform and current date
+            function getDownloadFilename() {
+                const platform = document.querySelector('.platform-btn.active').dataset.platform;
+                const date = new Date();
+                const timestamp = `${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}_${date.getHours().toString().padStart(2, '0')}${date.getMinutes().toString().padStart(2, '0')}`;
+                return `${platform}_transcript_${timestamp}.txt`;
+            }
+            
+            // Initialize AdSense ads
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+    </script>
+</body>
+</html>
