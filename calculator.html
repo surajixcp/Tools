@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+        
+        :root {
+            --primary: #00f3ff;
+            --secondary: #ff2a6d;
+            --dark: #0a0e20;
+            --darker: #050a14;
+            --light: #d1f7ff;
+            --operator: #ff2a6d;
+            --equals: #05d9e8;
+            --clear: #ff2a6d;
+            --button-bg: rgba(5, 217, 232, 0.1);
+            --glow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            --equals-glow: 0 0 15px var(--equals), 0 0 30px rgba(5, 217, 232, 0.5);
+            --equals-active-glow: 0 0 25px var(--equals), 0 0 50px rgba(5, 217, 232, 0.8);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            overflow: hidden;
+        }
+        
+        .calculator {
+            width: 340px;
+            background: rgba(10, 14, 32, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            position: relative;
+        }
+        
+        .display {
+            padding: 25px 20px;
+            text-align: right;
+            background: rgba(5, 10, 20, 0.8);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        
+        .display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scanline 3s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .calculation {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            min-height: 20px;
+            color: rgba(209, 247, 255, 0.6);
+            word-wrap: break-word;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.3);
+            opacity: 0.8;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .input {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            min-height: 30px;
+            color: rgba(209, 247, 255, 0.8);
+            word-wrap: break-word;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .result {
+            font-size: 2.8rem;
+            font-weight: bold;
+            min-height: 50px;
+            word-wrap: break-word;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(0, 243, 255, 0.1);
+            padding: 15px;
+        }
+        
+        button {
+            border: none;
+            outline: none;
+            padding: 20px 10px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            background: var(--button-bg);
+            color: var(--light);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:active {
+            transform: translateY(0);
+            transition: none;
+        }
+        
+        .operator {
+            color: var(--operator);
+            text-shadow: 0 0 5px var(--operator);
+        }
+        
+        .equals {
+            background: rgba(5, 217, 232, 0.3);
+            color: var(--equals);
+            text-shadow: 0 0 5px var(--equals);
+            grid-column: span 2;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .equals:hover {
+            box-shadow: var(--equals-glow);
+        }
+        
+        .equals.pressed {
+            animation: equalsPress 0.4s ease-out;
+            box-shadow: var(--equals-active-glow);
+        }
+        
+        @keyframes equalsPress {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        
+        .clear {
+            color: var(--clear);
+            text-shadow: 0 0 5px var(--clear);
+        }
+        
+        /* Result animation */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pop-animation {
+            animation: pop 0.3s ease;
+        }
+        
+        /* Calculation animation */
+        @keyframes calculateAnimation {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .calculating {
+            animation: calculateAnimation 0.5s ease;
+        }
+        
+        /* Floating result animation */
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-20px); opacity: 0; }
+        }
+        
+        .float-up {
+            animation: floatUp 0.5s ease forwards;
+            position: absolute;
+            right: 20px;
+            bottom: 80px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 400px) {
+            .calculator {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .display {
+                min-height: 30vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="calculation" id="calculation"></div>
+            <div class="input" id="input">0</div>
+            <div class="result" id="result"></div>
+        </div>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">AC</button>
+            <button onclick="appendToDisplay('(')">(</button>
+            <button onclick="appendToDisplay(')')">)</button>
+            <button class="operator" onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('*')">×</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="backspace()">⌫</button>
+            <button class="equals" id="equalsBtn" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        // Calculator state
+        let currentInput = '';
+        let currentCalculation = '';
+        let lastResult = null;
+        const calculationDisplay = document.getElementById('calculation');
+        const inputDisplay = document.getElementById('input');
+        const resultDisplay = document.getElementById('result');
+        const equalsBtn = document.getElementById('equalsBtn');
+        
+        // Initialize display
+        function updateDisplays() {
+            inputDisplay.textContent = currentInput || '0';
+            calculationDisplay.textContent = currentCalculation;
+            resultDisplay.textContent = lastResult !== null ? lastResult : '';
+        }
+        
+        // Append value to current input
+        function appendToDisplay(value) {
+            playClickSound();
+            
+            // If starting new input after a result, clear the calculation
+            if (lastResult !== null && currentInput === '') {
+                currentCalculation = '';
+                lastResult = null;
+            }
+            
+            // Handle special cases
+            if (value === '.') {
+                // Check if current number already has a decimal
+                const parts = currentInput.split(/[\+\-\*\/]/);
+                const lastPart = parts[parts.length - 1];
+                if (lastPart.includes('.')) {
+                    return;
+                }
+                // Don't allow decimal as first character
+                if (currentInput === '' || 
+                    currentInput.slice(-1) === ' ' || 
+                    currentInput.slice(-1) === '(') {
+                    value = '0.';
+                }
+            }
+            
+            // Handle operators
+            if (['+', '-', '*', '/'].includes(value)) {
+                // Don't allow operators as first character (except minus)
+                if (currentInput === '' && value !== '-') {
+                    return;
+                }
+                
+                // Replace the last operator if another operator is pressed
+                const lastChar = currentInput.slice(-1).trim();
+                if (['+', '-', '*', '/'].includes(lastChar)) {
+                    currentInput = currentInput.slice(0, -1);
+                }
+                
+                // Add space around operators for better readability
+                value = ` ${value} `;
+            }
+            
+            currentInput += value;
+            updateDisplays();
+        }
+        
+        // Clear all inputs and results
+        function clearDisplay() {
+            playClickSound();
+            currentInput = '';
+            currentCalculation = '';
+            lastResult = null;
+            updateDisplays();
+            resultDisplay.classList.remove('pop-animation');
+            resultDisplay.style.color = 'var(--primary)';
+        }
+        
+        // Delete last character
+        function backspace() {
+            playClickSound();
+            
+            if (currentInput.slice(-3) === ' * ' || 
+                currentInput.slice(-3) === ' / ' || 
+                currentInput.slice(-3) === ' + ' || 
+                currentInput.slice(-3) === ' - ') {
+                currentInput = currentInput.slice(0, -3);
+            } else {
+                currentInput = currentInput.slice(0, -1);
+            }
+            
+            if (currentInput === '') {
+                lastResult = null;
+            }
+            
+            updateDisplays();
+        }
+        
+        // Perform calculation
+        function calculate() {
+            if (currentInput === '') return;
+            
+            playClickSound();
+            
+            // Animate equals button
+            equalsBtn.classList.add('pressed');
+            setTimeout(() => equalsBtn.classList.remove('pressed'), 400);
+            
+            try {
+                // Show calculating state
+                resultDisplay.classList.add('calculating');
+                
+                // Prepare expression
+                let expression = currentInput.replace(/×/g, '*');
+                
+                // Validate parentheses
+                if (!validateParentheses(expression)) {
+                    showError('Mismatched ()');
+                    return;
+                }
+                
+                // Save the full calculation
+                currentCalculation = currentInput + ' =';
+                
+                // Calculate result
+                const result = eval(expression);
+                
+                // Display result with animation
+                showResult(result);
+                
+                // Keep the result for future calculations
+                lastResult = result;
+                currentInput = '';
+                
+            } catch (error) {
+                showError('Invalid input');
+            }
+        }
+        
+        // Show calculation result with animation
+        function showResult(result) {
+            // Create a floating result element
+            const floatResult = document.createElement('div');
+            floatResult.className = 'result float-up';
+            floatResult.textContent = result;
+            floatResult.style.color = 'var(--primary)';
+            document.querySelector('.display').appendChild(floatResult);
+            
+            // Remove after animation
+            setTimeout(() => {
+                floatResult.remove();
+            }, 500);
+            
+            // Update main display
+            resultDisplay.textContent = result;
+            resultDisplay.style.color = 'var(--primary)';
+            resultDisplay.classList.remove('calculating');
+            resultDisplay.classList.add('pop-animation');
+            
+            setTimeout(() => {
+                resultDisplay.classList.remove('pop-animation');
+            }, 300);
+        }
+        
+        // Show error message
+        function showError(message) {
+            resultDisplay.textContent = message;
+            resultDisplay.style.color = 'var(--clear)';
+            resultDisplay.classList.remove('calculating');
+            resultDisplay.classList.add('pop-animation');
+            
+            setTimeout(() => {
+                resultDisplay.classList.remove('pop-animation');
+            }, 300);
+        }
+        
+        // Validate parentheses
+        function validateParentheses(expression) {
+            let stack = [];
+            for (let char of expression) {
+                if (char === '(') stack.push(char);
+                else if (char === ')') {
+                    if (stack.length === 0) return false;
+                    stack.pop();
+                }
+            }
+            return stack.length === 0;
+        }
+        
+        // Play click sound
+        function playClickSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.value = 800;
+                gainNode.gain.value = 0.1;
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                oscillator.stop(audioCtx.currentTime + 0.1);
+            } catch (e) {
+                console.log('Audio error:', e);
+            }
+        }
+        
+        // Keyboard support
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            
+            if (/[0-9.]/.test(key)) {
+                event.preventDefault();
+                appendToDisplay(key);
+            } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+                event.preventDefault();
+                appendToDisplay(key);
+            } else if (key === '(' || key === ')') {
+                event.preventDefault();
+                appendToDisplay(key);
+            } else if (key === 'Enter' || key === '=') {
+                event.preventDefault();
+                calculate();
+            } else if (key === 'Backspace') {
+                event.preventDefault();
+                backspace();
+            } else if (key === 'Escape') {
+                event.preventDefault();
+                clearDisplay();
+            }
+        });
+    </script>
+</body>
+</html>
