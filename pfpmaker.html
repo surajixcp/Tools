@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to create perfect profile pictures for all social media platforms. Customize, crop, and download your PFP in seconds.">
+    <meta name="keywords" content="pfp maker, profile picture creator, social media avatar, picture cropper, online photo editor">
+    <meta name="author" content="PFP Maker Pro">
+    <meta property="og:title" content="Free Online PFP Maker for Social Media">
+    <meta property="og:description" content="Create perfect profile pictures for Facebook, Twitter, Instagram, LinkedIn and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourpfpmaker.com">
+    <title>PFP Maker | Create Perfect Profile Pictures for Social Media</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .editor-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .editor-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .canvas-container {
+            margin: 0 auto;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        #pfp-canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .controls {
+            margin-top: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .preset-btn {
+            padding: 8px 12px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .preset-btn:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .sidebar {
+            flex: 0 0 300px;
+            min-width: 300px;
+        }
+        
+        .ad-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .instructions {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .instructions h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .social-media-presets {
+            margin-top: 20px;
+        }
+        
+        .size-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                flex: 1;
+                order: -1;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PFP Maker</h1>
+            <p class="subtitle">Create perfect profile pictures for all social media platforms</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="editor-section">
+                <h2>Image Editor</h2>
+                <div class="canvas-container">
+                    <canvas id="pfp-canvas" width="400" height="400"></canvas>
+                    <div class="spinner" id="loading-spinner"></div>
+                </div>
+                
+                <div class="controls">
+                    <div class="form-group">
+                        <label for="image-upload">Upload Image</label>
+                        <input type="file" id="image-upload" accept="image/*">
+                    </div>
+                    
+                    <button id="crop-btn" class="btn">Crop to Square</button>
+                    <button id="circle-btn" class="btn">Make Circular</button>
+                    <button id="add-border-btn" class="btn">Add Border</button>
+                    <button id="reset-btn" class="btn btn-danger">Reset</button>
+                    
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label for="border-color">Border Color</label>
+                        <input type="color" id="border-color" value="#6c5ce7">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="border-width">Border Width</label>
+                        <input type="range" id="border-width" min="0" max="20" value="5">
+                    </div>
+                    
+                    <div class="social-media-presets">
+                        <h3>Social Media Presets</h3>
+                        <div class="presets">
+                            <button class="preset-btn" data-size="180">Facebook</button>
+                            <button class="preset-btn" data-size="400">Facebook HD</button>
+                            <button class="preset-btn" data-size="200">Twitter</button>
+                            <button class="preset-btn" data-size="110">Twitter Small</button>
+                            <button class="preset-btn" data-size="320">Instagram</button>
+                            <button class="preset-btn" data-size="165">LinkedIn</button>
+                            <button class="preset-btn" data-size="128">Discord</button>
+                            <button class="preset-btn" data-size="512">Reddit</button>
+                        </div>
+                    </div>
+                    
+                    <div class="size-info">
+                        <p>Current Size: <span id="current-size">400x400</span> pixels</p>
+                    </div>
+                    
+                    <button id="download-btn" class="btn btn-success pulse" style="margin-top: 20px;">Download PFP</button>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="ad-container">
+                    <!-- Google AdSense Ad Unit -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_AD_UNIT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+                <div class="instructions">
+                    <h3>How to Create Your Perfect PFP</h3>
+                    <ol>
+                        <li>Upload your image using the button above</li>
+                        <li>Crop or resize using the tools</li>
+                        <li>Apply circular shape or border if desired</li>
+                        <li>Select a social media preset for optimal sizing</li>
+                        <li>Download your perfect profile picture!</li>
+                    </ol>
+                </div>
+                
+                <div class="ad-container" style="margin-top: 20px;">
+                    <!-- Second Ad Unit -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_SECOND_AD_UNIT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 PFP Maker Pro. All rights reserved.</p>
+            <p>Create stunning profile pictures for Facebook, Twitter, Instagram, LinkedIn and more.</p>
+        </footer>
+    </div>
+    
+    <div class="toast" id="toast-notification">Image downloaded successfully!</div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Fabric.js canvas
+            const canvas = new fabric.Canvas('pfp-canvas', {
+                backgroundColor: '#ffffff',
+                preserveObjectStacking: true
+            });
+            
+            let currentImage = null;
+            let currentSize = { width: 400, height: 400 };
+            
+            // Update size display
+            function updateSizeDisplay() {
+                document.getElementById('current-size').textContent = 
+                    `${currentSize.width}x${currentSize.height}`;
+            }
+            
+            // Show loading spinner
+            function showLoading() {
+                document.getElementById('loading-spinner').style.display = 'block';
+            }
+            
+            // Hide loading spinner
+            function hideLoading() {
+                document.getElementById('loading-spinner').style.display = 'none';
+            }
+            
+            // Show toast notification
+            function showToast(message) {
+                const toast = document.getElementById('toast-notification');
+                toast.textContent = message;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Handle image upload
+            document.getElementById('image-upload').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file.');
+                    return;
+                }
+                
+                showLoading();
+                
+                const reader = new FileReader();
+                reader.onload = function(f) {
+                    fabric.Image.fromURL(f.target.result, function(img) {
+                        // Clear canvas
+                        canvas.clear();
+                        
+                        // Scale image to fit canvas
+                        const scale = Math.min(
+                            canvas.width / img.width,
+                            canvas.height / img.height
+                        );
+                        
+                        img.set({
+                            left: canvas.width / 2,
+                            top: canvas.height / 2,
+                            originX: 'center',
+                            originY: 'center',
+                            scaleX: scale,
+                            scaleY: scale
+                        });
+                        
+                        canvas.add(img);
+                        canvas.renderAll();
+                        currentImage = img;
+                        hideLoading();
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            // Crop to square
+            document.getElementById('crop-btn').addEventListener('click', function() {
+                if (!currentImage) {
+                    alert('Please upload an image first.');
+                    return;
+                }
+                
+                showLoading();
+                
+                // Get current image dimensions
+                const width = currentImage.width * currentImage.scaleX;
+                const height = currentImage.height * currentImage.scaleY;
+                
+                // Determine crop dimensions (square)
+                const size = Math.min(width, height);
+                
+                // Create a temporary canvas for cropping
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = size;
+                tempCanvas.height = size;
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                // Calculate source coordinates
+                const sx = (width - size) / 2;
+                const sy = (height - size) / 2;
+                
+                // Draw cropped image to temp canvas
+                const originalCanvas = canvas.lowerCanvasEl;
+                tempCtx.drawImage(
+                    originalCanvas,
+                    currentImage.left - width/2 + sx,
+                    currentImage.top - height/2 + sy,
+                    size, size,
+                    0, 0,
+                    size, size
+                );
+                
+                // Create new image from cropped canvas
+                fabric.Image.fromURL(tempCanvas.toDataURL(), function(img) {
+                    // Scale to fit original canvas
+                    const scale = Math.min(
+                        canvas.width / img.width,
+                        canvas.height / img.height
+                    );
+                    
+                    img.set({
+                        left: canvas.width / 2,
+                        top: canvas.height / 2,
+                        originX: 'center',
+                        originY: 'center',
+                        scaleX: scale,
+                        scaleY: scale
+                    });
+                    
+                    canvas.clear();
+                    canvas.add(img);
+                    canvas.renderAll();
+                    currentImage = img;
+                    hideLoading();
+                    
+                    // Update current size
+                    currentSize.width = size;
+                    currentSize.height = size;
+                    updateSizeDisplay();
+                });
+            });
+            
+            // Make circular
+            document.getElementById('circle-btn').addEventListener('click', function() {
+                if (!currentImage) {
+                    alert('Please upload an image first.');
+                    return;
+                }
+                
+                showLoading();
+                
+                // Get current image dimensions
+                const width = currentImage.width * currentImage.scaleX;
+                const height = currentImage.height * currentImage.scaleY;
+                const size = Math.min(width, height);
+                
+                // Create a temporary canvas for circular mask
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = size;
+                tempCanvas.height = size;
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                // Draw circular mask
+                tempCtx.beginPath();
+                tempCtx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+                tempCtx.closePath();
+                tempCtx.fillStyle = 'white';
+                tempCtx.fill();
+                
+                // Create clipping mask
+                const mask = new fabric.Image(tempCanvas, {
+                    left: currentImage.left,
+                    top: currentImage.top,
+                    originX: 'center',
+                    originY: 'center',
+                    scaleX: currentImage.scaleX,
+                    scaleY: currentImage.scaleY,
+                    selectable: false,
+                    globalCompositeOperation: 'source-in'
+                });
+                
+                // Add both to canvas
+                canvas.clear();
+                canvas.add(currentImage);
+                canvas.add(mask);
+                canvas.renderAll();
+                hideLoading();
+            });
+            
+            // Add border
+            document.getElementById('add-border-btn').addEventListener('click', function() {
+                if (!currentImage) {
+                    alert('Please upload an image first.');
+                    return;
+                }
+                
+                const borderColor = document.getElementById('border-color').value;
+                const borderWidth = parseInt(document.getElementById('border-width').value);
+                
+                // Create a rectangle for the border
+                const rect = new fabric.Rect({
+                    width: currentImage.width * currentImage.scaleX + borderWidth * 2,
+                    height: currentImage.height * currentImage.scaleY + borderWidth * 2,
+                    left: currentImage.left,
+                    top: currentImage.top,
+                    originX: 'center',
+                    originY: 'center',
+                    fill: 'transparent',
+                    stroke: borderColor,
+                    strokeWidth: borderWidth,
+                    selectable: false
+                });
+                
+                canvas.add(rect);
+                canvas.sendToBack(rect);
+                canvas.renderAll();
+            });
+            
+            // Reset canvas
+            document.getElementById('reset-btn').addEventListener('click', function() {
+                canvas.clear();
+                currentImage = null;
+                document.getElementById('image-upload').value = '';
+                currentSize.width = 400;
+                currentSize.height = 400;
+                updateSizeDisplay();
+            });
+            
+            // Download image
+            document.getElementById('download-btn').addEventListener('click', function() {
+                if (!currentImage) {
+                    alert('Please upload an image first.');
+                    return;
+                }
+                
+                // Create a temporary canvas with higher resolution if needed
+                const downloadCanvas = document.createElement('canvas');
+                downloadCanvas.width = currentSize.width;
+                downloadCanvas.height = currentSize.height;
+                const downloadCtx = downloadCanvas.getContext('2d');
+                
+                // Fill with white background
+                downloadCtx.fillStyle = 'white';
+                downloadCtx.fillRect(0, 0, downloadCanvas.width, downloadCanvas.height);
+                
+                // Calculate scale for the downloaded image
+                const scale = Math.min(
+                    downloadCanvas.width / (currentImage.width * currentImage.scaleX),
+                    downloadCanvas.height / (currentImage.height * currentImage.scaleY)
+                );
+                
+                // Draw the image centered
+                const imgWidth = currentImage.width * currentImage.scaleX * scale;
+                const imgHeight = currentImage.height * currentImage.scaleY * scale;
+                const offsetX = (downloadCanvas.width - imgWidth) / 2;
+                const offsetY = (downloadCanvas.height - imgHeight) / 2;
+                
+                // Get the data URL from the original canvas
+                const originalCanvas = canvas.lowerCanvasEl;
+                downloadCtx.drawImage(
+                    originalCanvas,
+                    currentImage.left - (currentImage.width * currentImage.scaleX)/2,
+                    currentImage.top - (currentImage.height * currentImage.scaleY)/2,
+                    currentImage.width * currentImage.scaleX,
+                    currentImage.height * currentImage.scaleY,
+                    offsetX,
+                    offsetY,
+                    imgWidth,
+                    imgHeight
+                );
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.download = 'profile-picture.png';
+                link.href = downloadCanvas.toDataURL('image/png');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showToast('Image downloaded successfully!');
+            });
+            
+            // Social media presets
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const size = parseInt(this.getAttribute('data-size'));
+                    currentSize.width = size;
+                    currentSize.height = size;
+                    updateSizeDisplay();
+                    
+                    // Resize the canvas (visual feedback)
+                    canvas.setDimensions({ width: size, height: size });
+                    
+                    showToast(`Set to ${size}x${size} pixels (${this.textContent})`);
+                });
+            });
+            
+            // Initialize size display
+            updateSizeDisplay();
+            
+            // Initialize AdSense (if not already loaded)
+            if (typeof adsbygoogle === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+                script.async = true;
+                document.head.appendChild(script);
+            }
+        });
+    </script>
+</body>
+</html>
