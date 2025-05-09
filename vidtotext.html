@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to convert video content to text for social media platforms. Perfect for content creators, marketers, and social media managers.">
+    <meta name="keywords" content="video to text, transcription tool, social media content, video captioning, content creation tool">
+    <meta name="author" content="VideoTextGenerator">
+    <meta property="og:title" content="Video to Text Generator for Social Media">
+    <meta property="og:description" content="Convert any video to text for your social media content needs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:image" content="https://yourwebsite.com/preview-image.jpg">
+    <title>Video to Text Generator | Convert Videos to Social Media Content</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-color: #f8f9fa;
+            --dark-color: #202124;
+            --gray-color: #5f6368;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .tool-section {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+        }
+
+        .sidebar {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .ad-container {
+            background-color: #f1f3f4;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: #3367d6;
+            transform: translateY(-2px);
+        }
+
+        .result-container {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .result-text {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            min-height: 200px;
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .secondary-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .secondary-btn:hover {
+            background-color: #f0f7ff;
+        }
+
+        .platform-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform-option {
+            padding: 0.5rem 1rem;
+            background-color: #f1f3f4;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .platform-option:hover, .platform-option.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #3c4043;
+            color: #9aa0a6;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                flex: 1;
+                width: 100%;
+            }
+        }
+
+        /* Loading animation */
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Video2Text</a>
+            <div class="mobile-menu">☰</div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Convert Videos to Text for All Social Media Platforms</h1>
+            <p>Easily transform your video content into engaging text posts, captions, and transcripts optimized for Instagram, TikTok, YouTube, Twitter, and more.</p>
+        </div>
+    </section>
+
+    <div class="container main-content">
+        <section class="tool-section">
+            <h2>Video to Text Generator</h2>
+            <p>Upload your video or paste a URL to convert it to text in seconds.</p>
+            
+            <div class="form-group">
+                <label for="video-source">Video Source</label>
+                <select id="video-source">
+                    <option value="upload">Upload Video</option>
+                    <option value="url">Video URL</option>
+                </select>
+            </div>
+
+            <div id="upload-container" class="form-group">
+                <label for="video-upload">Upload Video File</label>
+                <input type="file" id="video-upload" accept="video/*">
+            </div>
+
+            <div id="url-container" class="form-group" style="display: none;">
+                <label for="video-url">Video URL</label>
+                <input type="url" id="video-url" placeholder="https://example.com/video.mp4">
+            </div>
+
+            <div class="form-group">
+                <label>Target Platform</label>
+                <div class="platform-options">
+                    <div class="platform-option active" data-platform="all">All Platforms</div>
+                    <div class="platform-option" data-platform="instagram">Instagram</div>
+                    <div class="platform-option" data-platform="tiktok">TikTok</div>
+                    <div class="platform-option" data-platform="youtube">YouTube</div>
+                    <div class="platform-option" data-platform="twitter">Twitter</div>
+                    <div class="platform-option" data-platform="facebook">Facebook</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="content-type">Content Type</label>
+                <select id="content-type">
+                    <option value="caption">Video Caption</option>
+                    <option value="transcript">Full Transcript</option>
+                    <option value="summary">Content Summary</option>
+                    <option value="tweet">Tweet Thread</option>
+                    <option value="blog">Blog Post</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tone">Tone</label>
+                <select id="tone">
+                    <option value="professional">Professional</option>
+                    <option value="casual">Casual</option>
+                    <option value="funny">Funny</option>
+                    <option value="persuasive">Persuasive</option>
+                    <option value="informative">Informative</option>
+                </select>
+            </div>
+
+            <button id="generate-btn">Generate Text</button>
+            <div class="loader" id="loader"></div>
+
+            <div class="result-container" id="result-container">
+                <h3>Generated Text</h3>
+                <div class="result-text" id="result-text"></div>
+                <div class="action-buttons">
+                    <button id="copy-btn">Copy Text</button>
+                    <button class="secondary-btn" id="download-btn">Download as TXT</button>
+                    <button class="secondary-btn" id="share-btn">Share</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="ad-container">
+                <!-- AdSense Ad Unit -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                     data-ad-slot="YOUR_AD_UNIT_ID"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="ad-container">
+                <!-- AdSense Ad Unit -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                     data-ad-slot="YOUR_AD_UNIT_ID"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </aside>
+    </div>
+
+    <section id="features" class="container features">
+        <h2 style="grid-column: 1/-1; text-align: center; margin-bottom: 1rem;">Powerful Features</h2>
+        <div class="feature-card">
+            <div class="feature-icon">🎥</div>
+            <h3>Multi-Platform Support</h3>
+            <p>Generate text optimized for Instagram, TikTok, YouTube, Twitter, Facebook, and more with the perfect format for each platform.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Fast Processing</h3>
+            <p>Our advanced algorithms quickly convert your video to accurate text, saving you hours of manual transcription.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎚️</div>
+            <h3>Tone Customization</h3>
+            <p>Adjust the tone of your generated text to match your brand voice, from professional to casual or funny.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>SEO Optimization</h3>
+            <p>Get text that includes relevant keywords to boost your content's visibility in search results.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Mobile Friendly</h3>
+            <p>Use our tool on any device to create content on the go whenever inspiration strikes.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Processing</h3>
+            <p>Your videos are processed securely and never stored permanently on our servers.</p>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="container" style="padding: 3rem 0; text-align: center;">
+        <h2>How It Works</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="margin-bottom: 2rem;">Our Video to Text Generator makes content creation effortless with just three simple steps:</p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="background-color: var(--primary-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">1</div>
+                    <h3>Upload Your Video</h3>
+                    <p>Upload a video file or paste a URL from any platform.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="background-color: var(--primary-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">2</div>
+                    <h3>Customize Settings</h3>
+                    <p>Select your target platform and preferred content type.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="background-color: var(--primary-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">3</div>
+                    <h3>Get Your Text</h3>
+                    <p>Download, copy, or share your perfectly formatted text.</p>
+                </div>
+            </div>
+            <button style="margin-top: 1rem;">Try It Now</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Video2Text</h3>
+                <p>The easiest way to convert video content to engaging text for all your social media platforms.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section" id="contact">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><a href="mailto:support@videotextgenerator.com">support@videotextgenerator.com</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright container">
+            <p>&copy; 2023 Video2Text Generator. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Video source toggle
+        document.getElementById('video-source').addEventListener('change', function() {
+            if (this.value === 'upload') {
+                document.getElementById('upload-container').style.display = 'block';
+                document.getElementById('url-container').style.display = 'none';
+            } else {
+                document.getElementById('upload-container').style.display = 'none';
+                document.getElementById('url-container').style.display = 'block';
+            }
+        });
+
+        // Platform selection
+        const platformOptions = document.querySelectorAll('.platform-option');
+        platformOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                platformOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Generate button click
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const videoSource = document.getElementById('video-source').value;
+            let isValid = false;
+            
+            if (videoSource === 'upload') {
+                const fileInput = document.getElementById('video-upload');
+                isValid = fileInput.files.length > 0;
+                if (!isValid) {
+                    showToast('Please upload a video file');
+                }
+            } else {
+                const urlInput = document.getElementById('video-url');
+                isValid = urlInput.value.trim() !== '' && isValidUrl(urlInput.value.trim());
+                if (!isValid) {
+                    showToast('Please enter a valid video URL');
+                }
+            }
+            
+            if (isValid) {
+                // Show loading animation
+                document.getElementById('loader').style.display = 'block';
+                document.getElementById('result-container').style.display = 'none';
+                
+                // Simulate processing (in a real app, this would be an API call)
+                setTimeout(() => {
+                    generateText();
+                    document.getElementById('loader').style.display = 'none';
+                    document.getElementById('result-container').style.display = 'block';
+                }, 2000);
+            }
+        });
+
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        function generateText() {
+            // This is a simulation - in a real app, you would call your backend API
+            const platform = document.querySelector('.platform-option.active').dataset.platform;
+            const contentType = document.getElementById('content-type').value;
+            const tone = document.getElementById('tone').value;
+            
+            let result = '';
+            const now = new Date();
+            
+            if (contentType === 'caption') {
+                result = `Engaging ${platform !== 'all' ? platform + ' ' : ''}caption (${tone} tone):\n\n`;
+                result += `"Check out this amazing content! ${getToneSpecificText(tone)} Don't forget to like and follow for more! #content #creator #${platform !== 'all' ? platform : 'socialmedia'}"`;
+                
+                if (platform === 'instagram') {
+                    result += '\n\nPro tip: Use this caption with relevant hashtags (5-10) for better reach.';
+                } else if (platform === 'tiktok') {
+                    result += '\n\nTikTok tip: Keep it concise and add a call-to-action for better engagement.';
+                }
+            } else if (contentType === 'transcript') {
+                result = `Full video transcript (${tone} tone):\n\n`;
+                result += `[00:00:00] Introduction\nHello everyone! ${getToneSpecificText(tone)} Welcome to this video about converting video to text.\n\n`;
+                result += `[00:00:30] Main Content\nToday we're discussing how our tool can save you time by automatically generating text from your videos. ${getToneSpecificText(tone)}\n\n`;
+                result += `[00:01:15] Conclusion\nThanks for watching! ${getToneSpecificText(tone)} Don't forget to like and subscribe.`;
+            } else if (contentType === 'summary') {
+                result = `Video content summary (${tone} tone):\n\n`;
+                result += `This video discusses the process of converting video content to text for social media platforms. ${getToneSpecificText(tone)} The key points include:\n\n`;
+                result += `- How automatic transcription works\n- Platform-specific formatting options\n- Tone customization features\n- Time-saving benefits for content creators`;
+            }
+            
+            document.getElementById('result-text').textContent = result;
+        }
+
+        function getToneSpecificText(tone) {
+            switch(tone) {
+                case 'professional':
+                    return 'We appreciate your time and attention to this valuable content.';
+                case 'casual':
+                    return 'Hope you\'re enjoying this - let us know what you think in the comments!';
+                case 'funny':
+                    return 'If you laugh at this, you legally have to subscribe. Them\'s the rules.';
+                case 'persuasive':
+                    return 'You won\'t want to miss these incredible insights that will transform your content strategy!';
+                case 'informative':
+                    return 'This information can help you improve your content creation workflow significantly.';
+                default:
+                    return 'Thanks for checking out this content!';
+            }
+        }
+
+        // Copy text button
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const text = document.getElementById('result-text').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Text copied to clipboard!');
+            });
+        });
+
+        // Download button
+        document.getElementById('download-btn').addEventListener('click', function() {
+            const text = document.getElementById('result-text').textContent;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'video-text-content.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Download started!');
+        });
+
+        // Share button
+        document.getElementById('share-btn').addEventListener('click', function() {
+            const text = document.getElementById('result-text').textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Video Text Content',
+                    text: text.substring(0, 100) + '...',
+                    url: window.location.href
+                }).catch(err => {
+                    showToast('Error sharing: ' + err);
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(text.substring(0, 100) + '...\n\nRead more at: ' + window.location.href;
+                showToast('Content link copied to clipboard!');
+            }
+        });
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
