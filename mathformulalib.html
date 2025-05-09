@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive mathematics formula library with equations for algebra, geometry, calculus, trigonometry, and more. Search and copy formulas easily.">
+    <meta name="keywords" content="math formulas, mathematics equations, algebra formulas, geometry formulas, calculus formulas, trigonometry formulas">
+    <title>MathFormulaLib | Comprehensive Mathematics Formula Library</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #6c757d;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #3a56e8);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 8s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            100% { transform: rotate(30deg) translate(10%, 10%); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        #search {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        #search:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.3);
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .ad-container {
+            margin: 2rem auto;
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 1200px;
+        }
+
+        .formulas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .formula-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            transition: var(--transition);
+            transform: translateY(0);
+            opacity: 1;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .formula-card.hidden {
+            display: none;
+        }
+
+        .formula-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .formula-content {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .formula-latex {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-btn:hover {
+            background-color: #3a56e8;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn.copied {
+            background-color: var(--success-color);
+        }
+
+        .formula-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: #e9ecef;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 2rem;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .formulas-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-filter {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1.5rem 0;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .formula-card {
+                padding: 1rem;
+            }
+            
+            .formula-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* MathJax styling */
+        .MathJax {
+            font-size: 1.1em !important;
+        }
+
+        /* Loading animation */
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .loader.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MathFormulaLib</h1>
+            <p class="tagline">Your comprehensive mathematics formula reference</p>
+            
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search for formulas (e.g., quadratic, area, derivative)">
+            </div>
+            
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="algebra">Algebra</button>
+                <button class="category-btn" data-category="geometry">Geometry</button>
+                <button class="category-btn" data-category="calculus">Calculus</button>
+                <button class="category-btn" data-category="trigonometry">Trigonometry</button>
+                <button class="category-btn" data-category="statistics">Statistics</button>
+                <button class="category-btn" data-category="physics">Physics</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="ad-container">
+            <!-- AdSense Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="loader">
+            <div class="spinner"></div>
+            <p>Loading formulas...</p>
+        </div>
+
+        <div class="formulas-container" id="formulasContainer">
+            <!-- Formulas will be dynamically inserted here -->
+        </div>
+
+        <div class="ad-container">
+            <!-- AdSense Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 MathFormulaLib. All rights reserved.</p>
+            <p>A comprehensive mathematics formula reference library.</p>
+        </div>
+    </footer>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample formula data
+            const formulas = [
+                {
+                    title: "Quadratic Formula",
+                    description: "The solution to the quadratic equation ax² + bx + c = 0",
+                    latex: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+                    category: "algebra"
+                },
+                {
+                    title: "Pythagorean Theorem",
+                    description: "Relation between the sides of a right triangle",
+                    latex: "a^2 + b^2 = c^2",
+                    category: "geometry"
+                },
+                {
+                    title: "Area of Circle",
+                    description: "Formula to calculate the area of a circle",
+                    latex: "A = \\pi r^2",
+                    category: "geometry"
+                },
+                {
+                    title: "Derivative Power Rule",
+                    description: "Rule for finding the derivative of a power function",
+                    latex: "\\frac{d}{dx} x^n = n x^{n-1}",
+                    category: "calculus"
+                },
+                {
+                    title: "Sine of Sum",
+                    description: "Formula for sine of the sum of two angles",
+                    latex: "\\sin(a + b) = \\sin a \\cos b + \\cos a \\sin b",
+                    category: "trigonometry"
+                },
+                {
+                    title: "Binomial Theorem",
+                    description: "Expansion of powers of a binomial",
+                    latex: "(a + b)^n = \\sum_{k=0}^n \\binom{n}{k} a^{n-k} b^k",
+                    category: "algebra"
+                },
+                {
+                    title: "Euler's Formula",
+                    description: "Relationship between trigonometric functions and complex exponential",
+                    latex: "e^{i\\theta} = \\cos\\theta + i\\sin\\theta",
+                    category: "algebra"
+                },
+                {
+                    title: "Volume of Sphere",
+                    description: "Formula to calculate the volume of a sphere",
+                    latex: "V = \\frac{4}{3}\\pi r^3",
+                    category: "geometry"
+                },
+                {
+                    title: "Fundamental Theorem of Calculus",
+                    description: "Link between differentiation and integration",
+                    latex: "\\int_a^b f(x) dx = F(b) - F(a)",
+                    category: "calculus"
+                },
+                {
+                    title: "Law of Cosines",
+                    description: "Generalization of the Pythagorean theorem",
+                    latex: "c^2 = a^2 + b^2 - 2ab\\cos\\gamma",
+                    category: "trigonometry"
+                },
+                {
+                    title: "Standard Deviation",
+                    description: "Measure of the amount of variation in a set of values",
+                    latex: "\\sigma = \\sqrt{\\frac{1}{N}\\sum_{i=1}^N (x_i - \\mu)^2}",
+                    category: "statistics"
+                },
+                {
+                    title: "Newton's Second Law",
+                    description: "Relationship between force, mass and acceleration",
+                    latex: "F = ma",
+                    category: "physics"
+                },
+                {
+                    title: "Quadratic Surface Area",
+                    description: "Surface area of a quadratic surface",
+                    latex: "A = 2\\pi r^2 + 2\\pi r h",
+                    category: "geometry"
+                },
+                {
+                    title: "Logarithm Change of Base",
+                    description: "Formula for changing the base of a logarithm",
+                    latex: "\\log_b a = \\frac{\\log_k a}{\\log_k b}",
+                    category: "algebra"
+                },
+                {
+                    title: "Integration by Parts",
+                    description: "Method for integrating products of functions",
+                    latex: "\\int u dv = uv - \\int v du",
+                    category: "calculus"
+                },
+                {
+                    title: "Double Angle Formula",
+                    description: "Sine of double an angle",
+                    latex: "\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta",
+                    category: "trigonometry"
+                },
+                {
+                    title: "Binomial Probability",
+                    description: "Probability of k successes in n trials",
+                    latex: "P(X=k) = \\binom{n}{k} p^k (1-p)^{n-k}",
+                    category: "statistics"
+                },
+                {
+                    title: "Kinetic Energy",
+                    description: "Energy possessed by a moving object",
+                    latex: "E_k = \\frac{1}{2}mv^2",
+                    category: "physics"
+                }
+            ];
+
+            // DOM elements
+            const formulasContainer = document.getElementById('formulasContainer');
+            const searchInput = document.getElementById('search');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const loader = document.querySelector('.loader');
+
+            // Display all formulas initially
+            displayFormulas(formulas);
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+                
+                filterFormulas(searchTerm, activeCategory);
+            });
+
+            // Category filter functionality
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const category = this.dataset.category;
+                    
+                    filterFormulas(searchTerm, category);
+                });
+            });
+
+            // Function to display formulas
+            function displayFormulas(formulasToDisplay) {
+                loader.classList.add('active');
+                formulasContainer.innerHTML = '';
+                
+                // Simulate loading for better UX (remove in production)
+                setTimeout(() => {
+                    if (formulasToDisplay.length === 0) {
+                        formulasContainer.innerHTML = '<div class="no-results">No formulas found matching your criteria.</div>';
+                    } else {
+                        formulasToDisplay.forEach((formula, index) => {
+                            const formulaCard = document.createElement('div');
+                            formulaCard.className = 'formula-card';
+                            formulaCard.innerHTML = `
+                                <div class="formula-title">
+                                    <h3>${formula.title}</h3>
+                                    <button class="copy-btn" data-latex="${escapeHtml(formula.latex)}">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                        </svg>
+                                        Copy
+                                    </button>
+                                </div>
+                                <p class="formula-content">${formula.description}</p>
+                                <div class="formula-latex">${formula.latex}</div>
+                                <span class="formula-category">${formula.category}</span>
+                            `;
+                            formulasContainer.appendChild(formulaCard);
+                            
+                            // Add animation delay for each card
+                            formulaCard.style.animationDelay = `${index * 0.05}s`;
+                        });
+                    }
+                    loader.classList.remove('active');
+                    
+                    // Initialize copy buttons
+                    initCopyButtons();
+                    
+                    // Render MathJax
+                    if (typeof MathJax !== 'undefined') {
+                        MathJax.typesetPromise();
+                    }
+                }, 500);
+            }
+
+            // Function to filter formulas based on search and category
+            function filterFormulas(searchTerm, category) {
+                const filtered = formulas.filter(formula => {
+                    const matchesSearch = formula.title.toLowerCase().includes(searchTerm) || 
+                                         formula.description.toLowerCase().includes(searchTerm) ||
+                                         formula.latex.toLowerCase().includes(searchTerm);
+                    const matchesCategory = category === 'all' || formula.category === category;
+                    return matchesSearch && matchesCategory;
+                });
+                
+                displayFormulas(filtered);
+            }
+
+            // Function to initialize copy buttons
+            function initCopyButtons() {
+                const copyBtns = document.querySelectorAll('.copy-btn');
+                
+                copyBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const latex = this.getAttribute('data-latex');
+                        navigator.clipboard.writeText(latex).then(() => {
+                            const originalText = this.innerHTML;
+                            this.innerHTML = `
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Copied!
+                            `;
+                            this.classList.add('copied');
+                            
+                            setTimeout(() => {
+                                this.innerHTML = originalText;
+                                this.classList.remove('copied');
+                            }, 2000);
+                        });
+                    });
+                });
+            }
+
+            // Helper function to escape HTML
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            // Initialize MathJax configuration
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']]
+                },
+                options: {
+                    enableMenu: false
+                }
+            };
+        });
+    </script>
+</body>
+</html>
